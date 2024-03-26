@@ -5,6 +5,7 @@ import helmet from "helmet";
 import swaggerUi from "swagger-ui-express";
 
 import { swaggerSpec } from "./docs/swagger";
+import { mainRouter } from "./routers/routes";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(helmet());
 
+app.use(mainRouter);
 
 app.listen(PORT, () => {
     console.log(`It's live on http://localhost:${PORT}`)
