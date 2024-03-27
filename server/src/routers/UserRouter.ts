@@ -5,7 +5,7 @@ const userRouter = express.Router();
 
 /**
 * @swagger
-* /user:
+* /user/all:
 *   get:
 *       summary: Lista usuários registrados
 *       produces:
@@ -15,6 +15,6 @@ const userRouter = express.Router();
 *               description: 
 *                   Lista de usuários registrados
 */
-userRouter.get("/", userController.index);
+userRouter.get("/all", userController.index);
 
 export { userRouter };
