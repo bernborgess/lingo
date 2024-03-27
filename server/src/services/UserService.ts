@@ -1,9 +1,10 @@
+import { User } from "@prisma/client";
+import { prisma } from "../database/prismaClient";
 
 class UserService {
 
-    // Todo: User type
-    getUsers = async (): Promise<string[]> => {
-        const users = ["foo", "bar"];
+    getUsers = async (): Promise<User[]> => {
+        const users = await prisma.user.findMany();
         return users;
     }
 
