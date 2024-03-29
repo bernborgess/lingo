@@ -17,4 +17,57 @@ const userRouter = express.Router();
 */
 userRouter.get("/all", userController.index);
 
+/**
+ * @swagger
+ * /user/create:
+ * post:
+ *      summary: Cria um usuário
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          username:
+ *                              type: string
+ *                          email:
+ *                              type: string
+ *                              format: email 
+ *                          password:
+ *                              type: string
+ *                              format: password
+ *      responses:
+ *          '201': 
+ *              description: User Created Successfully
+ *          '400': 
+ *              description: Bad Request: Account with this email or username already exists
+ */
+userRouter.post("/create", userController.create);
+
+/**
+ * @swagger
+ * /user/login:
+ * post:
+ *      summary: Loga um usuário
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          username:
+ *                              type: string
+ *                          password:
+ *                              type: string
+ *                              format: password
+ *      responses:
+ *         '200': 
+ *              description: User Logged In Successfully
+ *         '401': 
+ *              description: Invalid Username or Password
+ */
+userRouter.post("/login", userController.login);
+
 export { userRouter };
