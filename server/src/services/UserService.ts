@@ -13,37 +13,32 @@ class UserService {
         return users_with_password.map(removePassword);
     }
 
-    createUser = async (username: string, email: string, password: string): Promise<void> => {    
+    createUser = async (username: string, email: string, password: string): Promise<void> => {
         const test_user = await prisma.user.findFirst({
-            where: {
-                OR: [
-                    { username: username },
-                    { email: email },
-                ],
-            },
+            where: { OR: [{ username }, { email }] }
         });
         if (test_user) {
             throw new Error("Account with this email or username already exists");
-        }  
-        const created_user = await prisma.user.create({
+        }
+        await prisma.user.create({
             data: {
-                email: email,
-                username: username,
-                password: password,
-                currentLevel: 0,
-            },
+                email,
+                username,
+                password,
+                currentLevel: 0
+            }
         });
     }
 
     login = async (username: string, password: string): Promise<User> => {
         const user = await prisma.user.findFirst({
-            where: {
-                username: username,
-            },
+            where: { username }
         });
         if (!user) {
             throw new Error("Invalid Username or Password");
         }
+        // TODO: Verify user.password == hash(password)
+        // TODO: Return set JWT token
         return removePassword(user);
     }
 }
