@@ -60,3 +60,34 @@ describe("getUsers returns a list of users", () => {
 
 
 })
+
+describe("createUser only creates valid users", () => {
+
+    it("Creates an new user with correct values", async () => {
+        prisma.user.findFirst = jest.fn().mockResolvedValue(null);
+        const username = "somename";
+        const email = "some@email.com";
+        const password = "somepassword123";
+        prisma.user.create = jest.fn().mockResolvedValue({
+            id: "someid", currentLevel: 0,
+            email, username, password
+        });
+        await userService.createUser(username, email, password);
+    })
+
+    it("Throws an error when the username is taken", async () => {
+        const user: User = {
+            id: "someid",
+            username: "somename",
+            email: "some@email.com",
+            password: "somepassword123",
+            currentLevel: 0
+        };
+        prisma.user.findFirst = jest.fn().mockResolvedValue(user);
+        prisma.user.create = jest.fn().mockResolvedValue(user);
+        await expect(userService.createUser(user.username, user.email, user.password))
+            .rejects
+            .toThrow("Account with this email or username already exists");
+    })
+
+})
