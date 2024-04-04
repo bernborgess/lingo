@@ -22,5 +22,5 @@ app.use(helmet());
 app.use(mainRouter);
 
 app.listen(PORT, () => {
-    console.log(`It's live on http://localhost:${PORT}`)
+    console.log(`It's live on http://localhost:${PORT}/api-docs`)
 })
