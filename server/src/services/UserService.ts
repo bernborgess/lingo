@@ -1,3 +1,5 @@
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import { prisma } from "../database/prismaClient";
 import { User, UserWithPassword } from "../models/UserModel";
 
@@ -13,14 +15,15 @@ class UserService {
         return users_with_password.map(removePassword);
     }
 
-    createUser = async (username: string, email: string, password: string): Promise<void> => {
+    createUser = async (username: string, email: string, password: string): Promise<User> => {
         const test_user = await prisma.user.findFirst({
             where: { OR: [{ username }, { email }] }
         });
         if (test_user) {
             throw new Error("Account with this email or username already exists");
         }
-        await prisma.user.create({
+        password = await bcrypt.hash(password, 10);
+        return prisma.user.create({
             data: {
                 email,
                 username,
@@ -30,16 +33,28 @@ class UserService {
         });
     }
 
-    login = async (username: string, password: string): Promise<User> => {
+    login = async (username: string, password: string): Promise<string> => {
         const user = await prisma.user.findFirst({
             where: { username }
         });
         if (!user) {
             throw new Error("Invalid Username or Password");
         }
-        // TODO: Verify user.password == hash(password)
-        // TODO: Return set JWT token
-        return removePassword(user);
+
+        const correctPassword = await bcrypt.compare(password, user.password);
+        if (!correctPassword) {
+            throw new Error("Invalid Username or Password");
+        }
+
+        const token = jwt.sign({
+            id: user.id,
+            email: user.email
+        },
+            process.env.JWT_SECRET || "CHANGEME",
+            { expiresIn: "1d" }
+        );
+
+        return token;
     }
 }
 
