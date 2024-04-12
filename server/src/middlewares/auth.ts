@@ -36,8 +36,14 @@ function getCookie(req: Request) {
 
 export function isLoggedIn(req: Request, res: Response, next: NextFunction) {
     const token = getCookie(req);
-    if (!token) return res.status(400).json("Not logged in");
+    if (!token)
+        return res.status(401).json("Not logged in");
+
     const decoded = verify(token);
-    if (typeof decoded === "string") return res.status(400).json("Not logged in");
+    if (typeof decoded === "string")
+        return res.status(401).json("Not logged in");
+
+    res.locals.isLoggedIn = true;
+    res.locals.user = decoded;
     next();
 }
