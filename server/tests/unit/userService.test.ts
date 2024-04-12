@@ -115,7 +115,7 @@ describe("login authenticates valid user credentials", () => {
         }
 
         prisma.user.findFirst = jest.fn().mockResolvedValue(user);
-        jwt.sign = jest.fn().mockResolvedValue("finaljwttoken");
+        jwt.sign = jest.fn().mockReturnValue("finaljwttoken");
 
         const token = await userService.login(username, password);
         expect(token).toBe("finaljwttoken");
