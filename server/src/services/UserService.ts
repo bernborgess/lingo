@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { prisma } from "../database/prismaClient";
+import { sign } from "../middlewares/auth";
 import { User, UserWithPassword } from "../models/UserModel";
 
 function removePassword(uwp: UserWithPassword): User {
@@ -46,13 +46,10 @@ class UserService {
             throw new Error("Invalid Username or Password");
         }
 
-        const token = jwt.sign({
+        const token = sign({
             id: user.id,
             email: user.email
-        },
-            process.env.JWT_SECRET || "CHANGEME",
-            { expiresIn: "1d" }
-        );
+        });
 
         return token;
     }

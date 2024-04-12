@@ -1,4 +1,7 @@
+import dotenv from "dotenv";
 import type { Config } from 'jest';
+
+dotenv.config();
 
 const config: Config = {
 
