@@ -23,10 +23,9 @@ class UserController {
         try {
             const { username, password } = req.body;
             const token = await userService.login(username, password);
-            // TODO: Set JWT token
+            res.cookie('jwt', token, { httpOnly: true, secure: false });
             res.status(200).json({
-                message: `Welcome, ${username}!`,
-                token
+                message: `Welcome, ${username}!`
             });
         } catch (error: any) {
             res.status(401).json(error.message);

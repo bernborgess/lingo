@@ -1,5 +1,6 @@
 import express from "express";
 import userController from "../controllers/UserController";
+import { isLoggedIn } from "../middlewares/auth";
 
 const userRouter = express.Router();
 
@@ -15,7 +16,7 @@ const userRouter = express.Router();
 *               description: 
 *                   Lista de usuários registrados
 */
-userRouter.get("/all", userController.index);
+userRouter.get("/all", isLoggedIn, userController.index);
 
 /**
 * @swagger
@@ -64,9 +65,9 @@ userRouter.post("/create", userController.create);
 *                              format: password
 *      responses:
 *         200: 
-*              description: User Logged In Successfully
+*               description: User Logged In Successfully
 *         401: 
-*              description: Invalid Username or Password
+*               description: Invalid Username or Password
 */
 userRouter.post("/login", userController.login);
 

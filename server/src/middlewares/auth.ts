@@ -1,3 +1,4 @@
+import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 export interface JwtData {
@@ -27,4 +28,16 @@ export function verify(token: string): JwtData | "JWT_SECRET_NOT_FOUND" | "INVAL
     } catch (err) {
         return "INVALID_TOKEN";
     }
+}
+
+function getCookie(req: Request) {
+    return req?.cookies?.jwt ?? null;
+}
+
+export function isLoggedIn(req: Request, res: Response, next: NextFunction) {
+    const token = getCookie(req);
+    if (!token) return res.status(400).json("Not logged in");
+    const decoded = verify(token);
+    if (typeof decoded === "string") return res.status(400).json("Not logged in");
+    next();
 }
