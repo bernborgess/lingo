@@ -1,4 +1,4 @@
 {
-    "name": "Node.js & TypeScript",
+    "name": "Lingo",
     "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye"
 }
