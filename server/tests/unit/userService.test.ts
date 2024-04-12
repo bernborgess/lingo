@@ -126,9 +126,27 @@ describe("login authenticates valid user credentials", () => {
         const password = "password";
 
         prisma.user.findFirst = jest.fn().mockResolvedValue(null);
-        jwt.sign = jest.fn().mockResolvedValue("finaljwttoken");
 
         await expect(userService.login(username, password))
+            .rejects
+            .toThrow("Invalid Username or Password");
+    })
+
+    it("Rejects incorrect password", async () => {
+        const username = "username";
+        const password = "password";
+        const hashed = await bcrypt.hash(password, 10);
+        const user: User = {
+            id: "id",
+            email: "some@email.com",
+            username,
+            password: hashed,
+            currentLevel: 0
+        }
+
+        prisma.user.findFirst = jest.fn().mockResolvedValue(user);
+
+        await expect(userService.login(username, "badpassword"))
             .rejects
             .toThrow("Invalid Username or Password");
     })
