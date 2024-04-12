@@ -15,6 +15,9 @@ const userRouter = express.Router();
 *           200:
 *               description: 
 *                   Lista de usuários registrados
+*           401:
+*               description:
+*                   Erro Not logged in
 */
 userRouter.get("/all", isLoggedIn, userController.index);
 
