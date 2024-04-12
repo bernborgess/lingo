@@ -41,4 +41,8 @@ describe("sign works correctly", () => {
 
 })
 
-describe("", () => { })
+// TODO
+describe("verify can read the token", () => { })
+
+// TODO
+describe("isLoggedIn middleware allows only logged users", () => { })
