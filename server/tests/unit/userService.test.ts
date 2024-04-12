@@ -1,7 +1,11 @@
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
 import { User } from "@prisma/client";
 import { prisma } from "../../src/database/prismaClient";
 import { UserWithPassword } from "../../src/models/UserModel";
 import userService from "../../src/services/UserService";
+
 
 jest.mock("../../src/database/prismaClient", () => ({
     prisma: {
@@ -10,6 +14,14 @@ jest.mock("../../src/database/prismaClient", () => ({
         }
     }
 }))
+
+// jest.mock("bcryptjs", () => ({
+//     compare: jest.fn()
+// }));
+
+jest.mock("jsonwebtoken", () => ({
+    sign: jest.fn()
+}));
 
 describe("getUsers returns a list of users", () => {
 
@@ -89,5 +101,29 @@ describe("createUser only creates valid users", () => {
             .rejects
             .toThrow("Account with this email or username already exists");
     })
+
+})
+
+describe("login authenticates valid user credentials", () => {
+
+    it("Logs in a user with correct credentials", async () => {
+        const username = "username";
+        const password = "password";
+        const hashed = await bcrypt.hash(password, 10);
+        const user: User = {
+            id: "id",
+            email: "some@email.com",
+            username,
+            password: hashed,
+            currentLevel: 0
+        }
+
+        prisma.user.findFirst = jest.fn().mockResolvedValue(user);
+        jwt.sign = jest.fn().mockResolvedValue("finaljwttoken");
+
+        const token = await userService.login(username, password);
+        expect(token).toBe("finaljwttoken");
+    })
+
 
 })
