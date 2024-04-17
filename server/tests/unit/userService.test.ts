@@ -105,6 +105,7 @@ describe("login authenticates valid user credentials", () => {
 
     beforeAll(() => {
         originalEnv = process.env;
+        process.env.JWT_SECRET = "someSecret";
     })
 
     afterAll(() => {
