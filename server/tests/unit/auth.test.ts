@@ -1,6 +1,6 @@
+import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { sign, verify, isLoggedIn, JwtData } from "../../src/middlewares/auth";
-import { Request, Response, NextFunction } from "express";
+import { JwtData, isLoggedIn, sign, verify } from "../../src/middlewares/auth";
 
 jest.mock("jsonwebtoken", () => ({
     sign: jest.fn(),
@@ -43,7 +43,6 @@ describe("`sign` works correctly", () => {
 
 })
 
-// TODO
 describe("`verify` can read the token", () => {
     let originalEnv: NodeJS.ProcessEnv;
 
@@ -77,19 +76,42 @@ describe("`verify` can read the token", () => {
 
     it("Works when token is valid", () => {
         process.env.JWT_SECRET = "testSecret";
-        const testJwtData : JwtData = {id: "testId", email: "testEmail@email.com"};
+        const testJwtData: JwtData = { id: "testId", email: "testEmail@email.com" };
         jwt.verify = jest.fn().mockImplementation(() => testJwtData);
         expect(verify("testToken")).toBe(testJwtData);
     })
 
 })
 
-// TODO
 describe("isLoggedIn middleware allows only logged users", () => {
     it("Fails when there is no token", () => {
-        let testReq: any = undefined;
-        let testRes: any = undefined;
-        let testNext: any = undefined;
-        // expect(isLoggedIn(testReq, testRes, testNext)).toBe(Response);
+        const testReq = {} as Request;
+        const testRes = {} as Response;
+        const testNext = jest.fn();
+
+        testRes.status = jest.fn().mockReturnThis();
+        testRes.json = jest.fn().mockReturnThis();
+
+        isLoggedIn(testReq, testRes, testNext);
+        expect(testRes.status).toHaveBeenCalledWith(401);
+        expect(testRes.json).toHaveBeenCalledWith("Not logged in");
     })
+
+    it("Fails when verify(token) is a string", () => {
+        const testReq = {} as Request;
+        const testRes = {} as Response;
+        const testNext = jest.fn();
+        testReq.cookies = { jwt: "jwt" };
+        process.env.JWT_SECRET = "secret";
+        jwt.verify = jest.fn().mockReturnValue("string");
+
+        testRes.status = jest.fn().mockReturnThis();
+        testRes.json = jest.fn().mockReturnThis();
+
+        isLoggedIn(testReq, testRes, testNext);
+
+        expect(testRes.status).toHaveBeenCalledWith(401);
+        expect(testRes.json).toHaveBeenCalledWith("Not logged in");
+    })
+
 })
