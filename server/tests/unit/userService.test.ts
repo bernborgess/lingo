@@ -101,6 +101,16 @@ describe("createUser only creates valid users", () => {
 })
 
 describe("login authenticates valid user credentials", () => {
+    let originalEnv: NodeJS.ProcessEnv;
+
+    beforeAll(() => {
+        originalEnv = process.env;
+    })
+
+    afterAll(() => {
+        process.env = originalEnv;
+        jest.clearAllMocks();
+    })
 
     it("Logs in a user with correct credentials", async () => {
         const username = "username";
