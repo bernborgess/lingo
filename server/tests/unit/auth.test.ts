@@ -114,4 +114,23 @@ describe("isLoggedIn middleware allows only logged users", () => {
         expect(testRes.json).toHaveBeenCalledWith("Not logged in");
     })
 
+    it("Succeeds when jwt cookie is set", () => {
+        const testReq = {} as Request;
+        const testRes = {} as Response;
+        const testNext = jest.fn();
+
+        testReq.cookies = { jwt: "jwt" };
+        process.env.JWT_SECRET = "secret";
+
+        jwt.verify = jest.fn()
+            .mockReturnValue({ id: "id", email: "email@email.com" });
+
+        testRes.locals = {};
+
+        isLoggedIn(testReq, testRes, testNext);
+
+        expect(testRes.locals.isLoggedIn).toBe(true);
+        expect(testRes.locals.user).toBeDefined();
+    })
+
 })
