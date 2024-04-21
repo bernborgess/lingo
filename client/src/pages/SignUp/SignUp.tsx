@@ -11,7 +11,9 @@ import Lingo from "../../assets/hello-lingo.svg"
 import PersonIcon from '@mui/icons-material/Person';
 import MailIcon from '@mui/icons-material/Mail';
 import LockIcon from '@mui/icons-material/Lock';
-import { useSignUpForm } from './hooks/useSignupForm';
+
+// hooks
+import { useSignUpForm } from './hooks/useSignUpForm';
 
 export default function SignUp() {
     const { signupForm, setUserName, setUserEmail, setUserPassword } = useSignUpForm();

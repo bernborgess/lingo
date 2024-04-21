@@ -1,0 +1,21 @@
+.SignIn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SignIn img {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.SignIn form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sm);
+}
+
+.SignIn form {
+    width: 50%;
+}

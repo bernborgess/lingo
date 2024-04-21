@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-type TSignupForm = {
+type TSignUpForm = {
     userName: string;
     email: string;
     password: string;
 }
 
-const initialFormState:TSignupForm = {
+const initialFormState:TSignUpForm = {
     userName: '',
     email: '',
     password: '',
