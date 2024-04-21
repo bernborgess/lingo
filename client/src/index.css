@@ -6,6 +6,8 @@
     --dark-green: #429403;
     --yellow: #FFC800;
     --red: #FC4848;
+    --grey: #F9F9F9;
+    --dark-grey: #A9A9A9;
 
     --sm: 16px;
     --md: 20px;
@@ -15,6 +17,9 @@
 * {
     font-family: "Nunito", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 600;
+    font-weight: 400; /*200 to 1000*/
     font-style: normal;
+}
+b {
+    font-weight: 800;
 }
