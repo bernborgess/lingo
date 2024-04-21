@@ -1,8 +1,9 @@
 import './App.css'
+import LingoRoutes from './routes/LingoRoutes.tsx'
 
 function App() {
-
-  return (  <div>Hello World!</div>
+  return (
+    <LingoRoutes/>
   )
 }
 

@@ -1,0 +1,14 @@
+button {
+    height: 50px;
+    min-width: 250px;
+    border-radius: 12px;
+    border: none;
+    color: var(--white);
+    background-color: var(--green);
+
+    font-size: var(--md);
+}
+
+button:active {
+    background-color: var(--dark-green);
+}

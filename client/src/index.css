@@ -1,0 +1,20 @@
+:root {
+    --white: #ffffff;
+    --blue: #A6E3FF;
+    --light-green: #58CC02;
+    --green: #58CC02;
+    --dark-green: #429403;
+    --yellow: #FFC800;
+    --red: #FC4848;
+
+    --sm: 16px;
+    --md: 20px;
+    --lg: 28px;
+}
+
+* {
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}

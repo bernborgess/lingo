@@ -1,0 +1,23 @@
+.SignUp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.SignUp img {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.SignUp form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sm);
+}
+
+.SignUp form {
+    width: 50%;
+}
+
