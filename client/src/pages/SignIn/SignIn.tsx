@@ -25,8 +25,8 @@ export default function SignIn() {
             <img src={Lingo} />
             <form>
                 <h2><b>Login</b> to your account</h2>
-                <TextInput value={signInForm.userName} onChange={ setUserName} placeHolder='Username' icon={<PersonIcon htmlColor='var(--green)' />} />
-                <TextInput value={signInForm.password} onChange={setUserPassword} placeHolder='Password' icon={<LockIcon htmlColor='var(--green)' />} />
+                <TextInput type="text" value={signInForm.userName} onChange={ setUserName} placeHolder='Username' icon={<PersonIcon htmlColor='var(--green)' />} />
+                <TextInput type="password" value={signInForm.password} onChange={setUserPassword} placeHolder='Password' icon={<LockIcon htmlColor='var(--green)' />} />
                 <Button onClick={(e) => handleSubmit(e)} label="Login" />
             </form>
         </div>

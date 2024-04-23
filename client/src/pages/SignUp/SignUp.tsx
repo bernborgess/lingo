@@ -28,9 +28,9 @@ export default function SignUp() {
             <img src={Lingo} />
             <form>
                 <h2><b>Sign Up</b> to your account</h2>
-                <TextInput value={signupForm.userName} onChange={ setUserName} placeHolder='Username' icon={<PersonIcon htmlColor='var(--green)' />} />
-                <TextInput value={signupForm.email} onChange={setUserEmail} placeHolder='Email' icon={<MailIcon htmlColor='var(--green)' />} />
-                <TextInput value={signupForm.password} onChange={setUserPassword} placeHolder='Password' icon={<LockIcon htmlColor='var(--green)' />} />
+                <TextInput type="text" value={signupForm.userName} onChange={ setUserName} placeHolder='Username' icon={<PersonIcon htmlColor='var(--green)' />} />
+                <TextInput type="text" value={signupForm.email} onChange={setUserEmail} placeHolder='Email' icon={<MailIcon htmlColor='var(--green)' />} />
+                <TextInput type="password" value={signupForm.password} onChange={setUserPassword} placeHolder='Password' icon={<LockIcon htmlColor='var(--green)' />} />
                 <Button onClick={(e) => handleSubmit(e)} label="Sign Up" />
             </form>
         </div>
