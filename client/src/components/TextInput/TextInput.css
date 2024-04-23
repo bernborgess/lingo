@@ -1,0 +1,17 @@
+.text-input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--dark-grey);
+    border-radius: 10px;
+    background-color: var(--grey);
+    padding: 5px;
+    min-width: 375px;
+}
+
+.text-input-container input {
+    border: none;
+    outline: none;
+    background-color: var(--grey);
+    width: 100%;
+
+}
