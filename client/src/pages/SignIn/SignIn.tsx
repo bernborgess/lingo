@@ -10,14 +10,20 @@ import Lingo from "../../assets/hello-lingo.svg"
 // MUI icons
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
-import { useSignInForm } from './hooks/useSignInForm';
+import { User, emptyData } from "../../types/user";
+import React from 'react';
+
+
 
 export default function SignIn() {
-    const { signInForm, setUserName, setUserPassword } = useSignInForm();
+    const [loginUser, setLoginUser] = React.useState<User>(emptyData);
+    
+    function updateData(addNewUser: Partial<User>) {
+        setLoginUser({ ...loginUser, ...addNewUser });
+    }
 
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        console.log({signInForm});
+    async function handleSubmit() {
+        console.log(loginUser.username);
     }
 
     return (
@@ -25,9 +31,19 @@ export default function SignIn() {
             <img src={Lingo} />
             <form>
                 <h2><b>Login</b> to your account</h2>
-                <TextInput type="text" value={signInForm.userName} onChange={ setUserName} placeHolder='Username' icon={<PersonIcon htmlColor='var(--green)' />} />
-                <TextInput type="password" value={signInForm.password} onChange={setUserPassword} placeHolder='Password' icon={<LockIcon htmlColor='var(--green)' />} />
-                <Button onClick={(e) => handleSubmit(e)} label="Login" />
+                <TextInput 
+                    type="text" 
+                    value={loginUser.username}
+                    onChange={ (e) => updateData({ username: e.target.value })} 
+                    placeHolder='Username' icon={<PersonIcon htmlColor='var(--green)' />} 
+                />
+                <TextInput 
+                    type="password" 
+                    value={loginUser.password} 
+                    onChange={(e) => updateData({ password: e.target.value })} 
+                    placeHolder='Password' icon={<LockIcon htmlColor='var(--green)' />} 
+                />
+                <Button onClick={handleSubmit} label="Login" />
             </form>
         </div>
     )

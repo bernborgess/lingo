@@ -8,8 +8,8 @@ export default function LingoRoutes() {
     return (
         <BrowserRouter>
             <Routes>
+                <Route path='/' element={<SignIn/>} />
                 <Route path='/SignUp' element={<SignUp/>} />
-                <Route path='/SignIn' element={<SignIn/>} />
             </Routes>
         </BrowserRouter>
     )

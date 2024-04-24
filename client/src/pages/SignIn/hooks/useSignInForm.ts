@@ -1,23 +1,13 @@
 import { useState } from "react";
-
-type TSignInForm = {
-    userName: string;
-    password: string;
-}
-
-const initialFormState:TSignInForm = {
-    userName: '',
-    password: '',
-}
-
+import { emptyData } from "../../../types/user";
 
 
 const useSignInForm = () => {
-    const [signInForm, setSignInForm] = useState(initialFormState)
+    const [signInForm, setSignInForm] = useState(emptyData)
 
 
     function setUserName(e: React.ChangeEvent<HTMLInputElement>){
-        setSignInForm({...signInForm, userName:e.target.value});  
+        setSignInForm({...signInForm, username:e.target.value});  
     }
     function setUserPassword(e: React.ChangeEvent<HTMLInputElement>){
         setSignInForm({...signInForm, password:e.target.value});  
