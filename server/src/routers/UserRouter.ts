@@ -9,6 +9,8 @@ const userRouter = express.Router();
 * /user/all:
 *   get:
 *       summary: Lista usuários registrados
+*       tags:
+*        - User
 *       produces:
 *           - application/json
 *       responses:
@@ -26,6 +28,8 @@ userRouter.get("/all", isLoggedIn, userController.index);
 * /user/create:
 *   post:
 *      summary: Cria um usuário
+*      tags:
+*       - User
 *      requestBody:
 *          required: true
 *          content:
@@ -54,6 +58,8 @@ userRouter.post("/create", userController.create);
 * /user/login:
 *   post:
 *      summary: Loga um usuário
+*      tags:
+*       - User
 *      requestBody:
 *          required: true
 *          content:

@@ -1,6 +1,7 @@
 
 
-interface Statement {
+export interface Statement {
+    type: "MultipleChoice" | "Ordering"
     phrase: string;
     options: string[];
 }
