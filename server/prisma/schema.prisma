@@ -30,10 +30,10 @@ model Question {
     phrase        String
     options       String[]
     answer        String[]
-    answerId      Int
+    answerId      Int          @default(0)
 }
 
 enum QuestionType {
-    MULTIPLE_CHOICE
-    ORDERING
+    MultipleChoice
+    Ordering
 }
