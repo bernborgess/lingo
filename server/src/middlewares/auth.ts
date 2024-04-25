@@ -31,7 +31,7 @@ export function verify(token: string): JwtData | "JWT_SECRET_NOT_FOUND" | "INVAL
 }
 
 function getCookie(req: Request) {
-    return req?.cookies?.jwt ?? null;
+    return req.cookies?.jwt ?? null;
 }
 
 export function isLoggedIn(req: Request, res: Response, next: NextFunction) {

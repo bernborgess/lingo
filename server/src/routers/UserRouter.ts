@@ -9,6 +9,8 @@ const userRouter = express.Router();
 * /user/all:
 *   get:
 *       summary: Lista usuários registrados
+*       tags:
+*        - User
 *       produces:
 *           - application/json
 *       responses:
@@ -26,6 +28,8 @@ userRouter.get("/all", isLoggedIn, userController.index);
 * /user/create:
 *   post:
 *      summary: Cria um usuário
+*      tags:
+*       - User
 *      requestBody:
 *          required: true
 *          content:
@@ -54,6 +58,8 @@ userRouter.post("/create", userController.create);
 * /user/login:
 *   post:
 *      summary: Loga um usuário
+*      tags:
+*       - User
 *      requestBody:
 *          required: true
 *          content:
@@ -73,5 +79,24 @@ userRouter.post("/create", userController.create);
 *               description: Invalid Username or Password
 */
 userRouter.post("/login", userController.login);
+
+/**
+* @swagger
+* /user/:
+*   get:
+*       summary: Retorna dados do usuario logado
+*       tags:
+*        - User
+*       produces:
+*           - application/json
+*       responses:
+*           200:
+*               description: 
+*                   Dados do usuário
+*           401:
+*               description:
+*                   Erro Not logged in
+*/
+userRouter.get("/", isLoggedIn, userController.whoami);
 
 export { userRouter };
