@@ -15,6 +15,17 @@ class UserService {
         return users_with_password.map(removePassword);
     }
 
+    getUserById = async (id: string): Promise<User> => {
+        const user_with_password =
+            await prisma.user.findFirst({ where: { id } });
+
+        if (!user_with_password) {
+            throw new Error("No user with this id");
+        }
+
+        return removePassword(user_with_password);
+    }
+
     createUser = async (username: string, email: string, password: string): Promise<User> => {
         const test_user = await prisma.user.findFirst({
             where: { OR: [{ username }, { email }] }
@@ -28,7 +39,7 @@ class UserService {
                 email,
                 username,
                 password,
-                currentLevel: 0
+                currentLevel: 1
             }
         });
     }
