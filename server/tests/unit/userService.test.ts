@@ -42,11 +42,7 @@ describe("getUsers returns a list of users", () => {
         expect(end_users.length).toBe(1);
         const end_user = end_users[0];
 
-        expect(end_user.id).toBe(init_user.id);
-        expect(end_user.username).toBe(init_user.username);
-        expect(end_user.email).toBe(init_user.email);
-        expect(end_user.currentLevel).toBe(init_user.currentLevel);
-
+        expect(init_user).toMatchObject(end_user);
     })
 
     it("Does not leak user passwords", async () => {
@@ -64,6 +60,49 @@ describe("getUsers returns a list of users", () => {
         expect(users.length).toBeGreaterThan(0);
         const user: any = users[0];
         expect(user.password).toBeUndefined();
+    })
+
+
+})
+
+describe("getUserById returns valid users", () => {
+
+    it("Returns the user when id exists", async () => {
+        const init_user: UserWithPassword = {
+            id: "id",
+            username: "fulano",
+            email: "fulano@gmail.com",
+            password: "senha123",
+            currentLevel: 3
+        };
+        prisma.user.findFirst = jest.fn().mockResolvedValue(init_user);
+
+        const end_user = await userService.getUserById(init_user.id);
+
+        expect(init_user).toMatchObject(end_user);
+    })
+
+    it("Fails if there is no such user", async () => {
+        prisma.user.findFirst = jest.fn().mockResolvedValue(null);
+
+        await expect(userService.getUserById("someinvalidid"))
+            .rejects
+            .toThrow("No user with this id");
+    })
+
+    it("Does not leak user passwords", async () => {
+        const init_user: User = {
+            id: "id",
+            username: "fulano",
+            email: "fulano@gmail.com",
+            password: "senha123",
+            currentLevel: 3
+        };
+
+        prisma.user.findFirst = jest.fn().mockResolvedValue(init_user);
+
+        const user = await userService.getUserById(init_user.id);
+        expect((user as any).password).toBeUndefined();
     })
 
 
