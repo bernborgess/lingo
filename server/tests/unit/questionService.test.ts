@@ -2,6 +2,8 @@ import questionService from "../../src/services/QuestionService";
 
 import { Question as QuestionDB } from "@prisma/client";
 import { prisma } from "../../src/database/prismaClient";
+import { User } from "../../src/models/UserModel";
+import userService from "../../src/services/UserService";
 
 jest.mock("../../src/database/prismaClient", () => ({
     prisma: {
@@ -9,6 +11,10 @@ jest.mock("../../src/database/prismaClient", () => ({
             findFirst: jest.fn()
         }
     }
+}))
+
+jest.mock("../../src/services/UserService", () => ({
+    getUserById: jest.fn()
 }))
 
 
@@ -25,9 +31,22 @@ describe("getStatement returns a valid statement", () => {
             answer: ['Are', 'you', 'a', 'cat'],
             answerId: 0
         };
+
+        const user: User = {
+            id: "userid",
+            email: "user@email.com",
+            username: "username",
+            currentLevel: 1
+        };
+
         prisma.question.findFirst = jest.fn().mockResolvedValue(question);
-        const statement = await questionService.getStatement(1, 1);
+        userService.getUserById = jest.fn().mockResolvedValue(user);
+
+        const statement = await questionService.getStatement(1, 1, "userid");
+
         expect(question).toMatchObject(statement);
-    })
+    });
+
+
 
 })
