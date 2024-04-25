@@ -80,4 +80,23 @@ userRouter.post("/create", userController.create);
 */
 userRouter.post("/login", userController.login);
 
+/**
+* @swagger
+* /user/:
+*   get:
+*       summary: Retorna dados do usuario logado
+*       tags:
+*        - User
+*       produces:
+*           - application/json
+*       responses:
+*           200:
+*               description: 
+*                   Dados do usuário
+*           401:
+*               description:
+*                   Erro Not logged in
+*/
+userRouter.get("/", isLoggedIn, userController.whoami);
+
 export { userRouter };
