@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-import { User } from "@prisma/client";
+import { User as UserDB } from "@prisma/client";
 import { prisma } from "../../src/database/prismaClient";
 import { UserWithPassword } from "../../src/models/UserModel";
 import userService from "../../src/services/UserService";
@@ -18,6 +18,13 @@ jest.mock("../../src/database/prismaClient", () => ({
 jest.mock("jsonwebtoken", () => ({
     sign: jest.fn()
 }));
+
+jest.mock("bcryptjs", () => ({
+    compare: jest.fn(),
+    hash: jest.fn()
+}))
+
+
 
 describe("getUsers returns a list of users", () => {
 
@@ -46,7 +53,7 @@ describe("getUsers returns a list of users", () => {
     })
 
     it("Does not leak user passwords", async () => {
-        const init_user: User = {
+        const init_user: UserDB = {
             id: "id",
             username: "fulano",
             email: "fulano@gmail.com",
@@ -91,7 +98,7 @@ describe("getUserById returns valid users", () => {
     })
 
     it("Does not leak user passwords", async () => {
-        const init_user: User = {
+        const init_user: UserDB = {
             id: "id",
             username: "fulano",
             email: "fulano@gmail.com",
@@ -123,7 +130,7 @@ describe("createUser only creates valid users", () => {
     })
 
     it("Throws an error when the username is taken", async () => {
-        const user: User = {
+        const user: UserDB = {
             id: "someid",
             username: "somename",
             email: "some@email.com",
@@ -155,8 +162,8 @@ describe("login authenticates valid user credentials", () => {
     it("Logs in a user with correct credentials", async () => {
         const username = "username";
         const password = "password";
-        const hashed = await bcrypt.hash(password, 10);
-        const user: User = {
+        const hashed = password.toUpperCase();
+        const user: UserDB = {
             id: "id",
             email: "some@email.com",
             username,
@@ -165,6 +172,7 @@ describe("login authenticates valid user credentials", () => {
         }
 
         prisma.user.findFirst = jest.fn().mockResolvedValue(user);
+        bcrypt.compare = jest.fn().mockImplementation((a, b) => a.toUpperCase() === b);
         jwt.sign = jest.fn().mockReturnValue("finaljwttoken");
 
         const token = await userService.login(username, password);
@@ -186,7 +194,7 @@ describe("login authenticates valid user credentials", () => {
         const username = "username";
         const password = "password";
         const hashed = await bcrypt.hash(password, 10);
-        const user: User = {
+        const user: UserDB = {
             id: "id",
             email: "some@email.com",
             username,
