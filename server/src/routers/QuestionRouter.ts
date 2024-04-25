@@ -1,5 +1,6 @@
 import express from "express";
 import QuestionController from "../controllers/QuestionController";
+import { isLoggedIn } from "../middlewares/auth";
 
 const questionRouter = express.Router({ mergeParams: true });
 
@@ -30,6 +31,6 @@ const questionRouter = express.Router({ mergeParams: true });
  *              description:
  *                  Coisas
  */
-questionRouter.get("/:questionSeq", QuestionController.getStatement);
+questionRouter.get("/:questionSeq", isLoggedIn, QuestionController.getStatement);
 
 export { questionRouter };
