@@ -8,11 +8,16 @@ class QuestionController {
     getStatement = async (req: Request, res: Response) => {
         try {
             const { levelSeq, questionSeq } = req.params;
+
             if (isNaN(Number(levelSeq)) || isNaN(Number(questionSeq))) {
                 throw new Error("Parameters must be numeric");
             }
-            const statement = await questionService.getStatement(Number(levelSeq), Number(questionSeq));
+
+            const { id } = res.locals.user;
+
+            const statement = await questionService.getStatement(Number(levelSeq), Number(questionSeq), id);
             res.json(statement)
+
         } catch (error: any) {
             res.status(400).json(error.message);
         }
