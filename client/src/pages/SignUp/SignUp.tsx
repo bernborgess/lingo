@@ -1,8 +1,8 @@
 import './Sigup.css';
 
 // components
-import { Button } from "../../components/Button";
-import { TextInput } from '../../components/TextInput';
+import { Button } from "../../utils/components/Button";
+import { TextInput } from '../../utils/components/TextInput';
 
 // assets
 import Lingo from "../../assets/hello-lingo.svg"
@@ -12,21 +12,35 @@ import PersonIcon from '@mui/icons-material/Person';
 import MailIcon from '@mui/icons-material/Mail';
 import LockIcon from '@mui/icons-material/Lock';
 
-// hooks
-import { NewUser, emptyData } from "../../types/user";
+// type
+import { NewUser, emptyData } from "../../utils/types/user";
 
+// react utils
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
+// requests
+import { createUser } from '../../service/User/createUser';
 
 
 export default function SignUp() {
     const [newUser, setNewUser] = React.useState<NewUser>(emptyData);
+    const navigate = useNavigate();
     
     function updateData(addNewUser: Partial<NewUser>) {
         setNewUser({ ...newUser, ...addNewUser });
     }
 
     async function handleSubmit() {
-        console.log({newUser});
+        try {
+            createUser(newUser);
+            } 
+            catch (error) {
+            console.error(error);
+        }
+        
+        navigate("../");
     }
 
     return (
