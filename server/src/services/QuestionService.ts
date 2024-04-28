@@ -18,6 +18,10 @@ class QuestionService {
             throw new Error("User did not reach this level");
         }
 
+        if (user.currentLevel == levelSequence && user.currentQuestion < sequence) {
+            throw new Error("User did not reach this question in this level");
+        }
+
         const question = await prisma.question.findFirst({
             where: { levelSequence, sequence }
         });

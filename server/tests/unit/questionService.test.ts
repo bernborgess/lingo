@@ -36,7 +36,8 @@ describe("getStatement returns a valid statement", () => {
             id: "userid",
             email: "user@email.com",
             username: "username",
-            currentLevel: 1
+            currentLevel: 1,
+            currentQuestion: 1
         };
 
         prisma.question.findFirst = jest.fn().mockResolvedValue(question);
@@ -52,7 +53,8 @@ describe("getStatement returns a valid statement", () => {
             id: "userid",
             email: "user@email.com",
             username: "username",
-            currentLevel: 1
+            currentLevel: 1,
+            currentQuestion: 1
         };
 
         userService.getUserById = jest.fn().mockResolvedValue(user);
@@ -62,12 +64,29 @@ describe("getStatement returns a valid statement", () => {
             .toThrow("User did not reach this level");
     });
 
+    it("Denies user that did not reach the question in the level", async () => {
+        const user: User = {
+            id: "userid",
+            email: "user@email.com",
+            username: "username",
+            currentLevel: 2,
+            currentQuestion: 1
+        };
+
+        userService.getUserById = jest.fn().mockResolvedValue(user);
+
+        await expect(questionService.getStatement(2, 2, "userid"))
+            .rejects
+            .toThrow("User did not reach this question in this level");
+    })
+
     it("Throws an error when the question does not exist", async () => {
         const user: User = {
             id: "userid",
             email: "user@email.com",
             username: "username",
-            currentLevel: 1
+            currentLevel: 1,
+            currentQuestion: 1
         };
 
         userService.getUserById = jest.fn().mockResolvedValue(user);
@@ -94,7 +113,8 @@ describe("getStatement returns a valid statement", () => {
             id: "userid",
             email: "user@email.com",
             username: "username",
-            currentLevel: 2
+            currentLevel: 2,
+            currentQuestion: 1
         };
 
         prisma.question.findFirst = jest.fn().mockResolvedValue(question);

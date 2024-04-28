@@ -4,6 +4,7 @@ export interface User {
     email: string;
     username: string;
     currentLevel: number;
+    currentQuestion: number;
 };
 
 export type UserWithPassword = User & {

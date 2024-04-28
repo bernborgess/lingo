@@ -40,7 +40,8 @@ describe("getUsers returns a list of users", () => {
             username: "fulano",
             email: "fulano@gmail.com",
             password: "senha123",
-            currentLevel: 3
+            currentLevel: 3,
+            currentQuestion: 1
         };
         prisma.user.findMany = jest.fn().mockResolvedValue([init_user]);
 
@@ -58,7 +59,8 @@ describe("getUsers returns a list of users", () => {
             username: "fulano",
             email: "fulano@gmail.com",
             password: "senha123",
-            currentLevel: 3
+            currentLevel: 3,
+            currentQuestion: 1
         };
 
         prisma.user.findMany = jest.fn().mockResolvedValue([init_user]);
@@ -80,7 +82,8 @@ describe("getUserById returns valid users", () => {
             username: "fulano",
             email: "fulano@gmail.com",
             password: "senha123",
-            currentLevel: 3
+            currentLevel: 3,
+            currentQuestion: 1
         };
         prisma.user.findFirst = jest.fn().mockResolvedValue(init_user);
 
@@ -103,7 +106,8 @@ describe("getUserById returns valid users", () => {
             username: "fulano",
             email: "fulano@gmail.com",
             password: "senha123",
-            currentLevel: 3
+            currentLevel: 3,
+            currentQuestion: 1
         };
 
         prisma.user.findFirst = jest.fn().mockResolvedValue(init_user);
@@ -123,7 +127,7 @@ describe("createUser only creates valid users", () => {
         const email = "some@email.com";
         const password = "somepassword123";
         prisma.user.create = jest.fn().mockResolvedValue({
-            id: "someid", currentLevel: 0,
+            id: "someid", currentLevel: 0, currentQuestion: 1,
             email, username, password
         });
         await userService.createUser(username, email, password);
@@ -135,7 +139,8 @@ describe("createUser only creates valid users", () => {
             username: "somename",
             email: "some@email.com",
             password: "somepassword123",
-            currentLevel: 0
+            currentLevel: 0,
+            currentQuestion: 1
         };
         prisma.user.findFirst = jest.fn().mockResolvedValue(user);
         prisma.user.create = jest.fn().mockResolvedValue(user);
@@ -168,7 +173,8 @@ describe("login authenticates valid user credentials", () => {
             email: "some@email.com",
             username,
             password: hashed,
-            currentLevel: 0
+            currentLevel: 0,
+            currentQuestion: 1
         }
 
         prisma.user.findFirst = jest.fn().mockResolvedValue(user);
@@ -199,7 +205,8 @@ describe("login authenticates valid user credentials", () => {
             email: "some@email.com",
             username,
             password: hashed,
-            currentLevel: 0
+            currentLevel: 0,
+            currentQuestion: 1
         }
 
         prisma.user.findFirst = jest.fn().mockResolvedValue(user);

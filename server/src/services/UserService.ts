@@ -39,7 +39,8 @@ class UserService {
                 email,
                 username,
                 password,
-                currentLevel: 1
+                currentLevel: 1,
+                currentQuestion: 1
             }
         });
     }
