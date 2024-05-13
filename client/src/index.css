@@ -7,8 +7,11 @@
     --yellow: #FFC800;
     --red: #FC4848;
     --grey: #F9F9F9;
+    --light-grey: #E5E5E5;
     --dark-grey: #A9A9A9;
 
+    --xxs: 2px;
+    --xs: 8px;
     --sm: 16px;
     --md: 20px;
     --lg: 28px;

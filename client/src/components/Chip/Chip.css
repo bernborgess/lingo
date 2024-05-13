@@ -1,0 +1,23 @@
+.Chip-background-visible {
+    border: 2px solid var(--light-grey);
+    border-bottom: 4px solid var(--light-grey);
+    border-radius: var(--xs);
+    cursor: pointer;
+}
+
+.Chip-background-hidden {
+    border: 2px solid var(--light-grey);
+    border-bottom: 4px solid var(--light-grey);
+    border-radius: var(--xs);
+    cursor: pointer;
+    background-color: var(--light-grey);
+}
+
+.Chip-body-visible {
+    padding: var(--xxs);
+}
+
+.Chip-body-hidden {
+    padding: var(--xxs);
+    visibility: hidden;
+}
