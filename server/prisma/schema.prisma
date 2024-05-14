@@ -9,8 +9,32 @@ datasource db {
 
 model User {
     id           String @id @default(auto()) @map("_id") @db.ObjectId
-    email        String
-    username     String
+    email        String @unique
+    username     String @unique
     password     String
     currentLevel Int
+    currentQuestion Int
+}
+
+model Level {
+    id        String     @id @default(auto()) @map("_id") @db.ObjectId
+    sequence  Int        @unique
+    questions Question[]
+}
+
+model Question {
+    id            String       @id @default(auto()) @map("_id") @db.ObjectId
+    levelSequence Int
+    level         Level        @relation(fields: [levelSequence], references: [sequence])
+    sequence      Int
+    type          QuestionType
+    phrase        String
+    options       String[]
+    answer        String[]
+    answerId      Int          @default(0)
+}
+
+enum QuestionType {
+    MultipleChoice
+    Ordering
 }
