@@ -1,16 +1,13 @@
 import { prisma } from "../database/prismaClient";
-import { Question as QuestionDB } from "@prisma/client";
 import userService from "./UserService";
 
 
 class LevelService {
     getAllLevels = async (): Promise<number[]> => {
 
-        const levels: { sequence: number }[] = await prisma.level.findMany({
-            select: { sequence: true }
-        });
+        const levels = await prisma.level.findMany();
 
-        if(!levels) {
+        if(!levels || levels.length <= 0) {
             throw new Error("Levels not found");
         }
 
@@ -33,7 +30,7 @@ class LevelService {
             throw new Error("Level not found")
         }
 
-        const questions: QuestionDB[] = await prisma.question.findMany({
+        const questions = await prisma.question.findMany({
             where: {
                 levelSequence: {
                     equals: sequence
