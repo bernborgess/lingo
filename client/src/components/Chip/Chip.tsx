@@ -5,10 +5,10 @@ import './Chip.css'
 type TChipProps = {
     onClick?: () => void;
     label: string;
-    shouldHideLabelWhenClick?: boolean;
+    isSelected?:boolean
 }
 export default function Chip(props:TChipProps){
-    const {onClick, label, shouldHideLabelWhenClick} = props;
+    const {onClick, label, isSelected} = props;
 
 
     const [isLabelVisible, setIsLabelVisible] = useState<boolean>(true);
@@ -19,8 +19,8 @@ export default function Chip(props:TChipProps){
     }
 
     return(
-        <span className={(!isLabelVisible && shouldHideLabelWhenClick) ? 'Chip-background-hidden' :'Chip-background-visible '} onClick={handleClick}>
-            <span className={(!isLabelVisible && shouldHideLabelWhenClick) ? 'Chip-body-hidden' :'Chip-body-visible'}>
+        <span className={(isSelected) ? 'Chip-background-hidden' :'Chip-background-visible '} onClick={handleClick}>
+            <span className={(isSelected) ? 'Chip-body-hidden' :'Chip-body-visible'}>
                 {label}
             </span>
         </span>

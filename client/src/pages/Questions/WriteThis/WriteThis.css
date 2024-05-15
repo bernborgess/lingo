@@ -2,9 +2,24 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid red;
+    gap: var(--sm);
 }
 .WriteThis div {
     display: flex;
     align-items: center;
+}
+
+.selectedWordsArea {
+    min-width: 50%;
+    margin-bottom: var(--xs);
+    min-height: 2rem;
+    padding-bottom: var(--xxs);
+    border-bottom: 1px solid var(--dark-grey);
+    display: flex;
+    gap: var(--xxs);
+}
+
+.optionsWordsArea {
+    display: flex;
+    gap: var(--xxs);
 }

@@ -9,7 +9,7 @@
     align-items: center;
 }
 
-.SpeechBubble div {
+.SpeechBubble span {
     border: 2px solid;
     border-color: transparent transparent var(--dark-grey) var(--dark-grey);
     background-color: var(--white);

@@ -3,13 +3,13 @@
     border-bottom: 4px solid var(--light-grey);
     border-radius: var(--xs);
     cursor: pointer;
+    background-color: var(--white);
 }
 
 .Chip-background-hidden {
     border: 2px solid var(--light-grey);
     border-bottom: 4px solid var(--light-grey);
     border-radius: var(--xs);
-    cursor: pointer;
     background-color: var(--light-grey);
 }
 

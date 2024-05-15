@@ -3,8 +3,8 @@ import './SpeechBubble.css';
 export default function SpeechBubble() {
     return (
         <p className='SpeechBubble'>
-            <div></div>
-            Bom dia, como vai você?
+            <span></span>
+            Você é um cachorro ?
         </p>
     )
 }
