@@ -44,8 +44,9 @@ const mock:TOptions = [
 
 export function useWriteThis() {
     const [options, setOptions] = useState<TOptions>(mock);
-    
     const [selectedWords, setSelectedWords] = useState<TOptions>([]);
+    const [answerStatus, setAnswerStatus] = useState<'complete'|'fail'|undefined>();
+    
 
     const handleSelectWord = useCallback((id:number) => {
         const obj = options.find((word:TWord) => word.id === id);
@@ -83,10 +84,17 @@ export function useWriteThis() {
         }
     },[selectedWords, options])
 
+    const submitAnswer = useCallback(() => {
+        console.log({selectedWords}, 'complete');
+        setAnswerStatus('complete');
+    }, [selectedWords])
+
     return {
         options,
         selectedWords,
+        answerStatus,
         handleSelectWord,
-        handleRemoveWord
+        handleRemoveWord,
+        submitAnswer
     }
 }

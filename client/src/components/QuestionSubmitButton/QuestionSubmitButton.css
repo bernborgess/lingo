@@ -1,0 +1,18 @@
+.QuestionSubmitButton{
+    border: 1px solid green;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    height: var(--xxlg);
+    padding-bottom: var(--sm);
+
+}   
+
+.QuestionSubmitSuccess {
+    background-color: var(--green);
+}
+
+.QuestionSubmitFail {
+    background-color: var(--red);
+}
