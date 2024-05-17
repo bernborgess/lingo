@@ -13,6 +13,7 @@ model User {
     username     String @unique
     password     String
     currentLevel Int
+    currentQuestion Int
 }
 
 model Level {
