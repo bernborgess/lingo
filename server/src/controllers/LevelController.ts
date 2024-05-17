@@ -23,10 +23,10 @@ class LevelController {
 
             const { id } = res.locals.user;
 
-            const nQuestions = await levelService.startLevel(Number(levelSeq), id);
-            res.json(nQuestions);
+            const questionCount = await levelService.startLevel(Number(levelSeq), id);
+            res.json({ questionCount });
 
-        } catch(error: any) {
+        } catch (error: any) {
             res.status(400).json(error.message);
         }
     }
