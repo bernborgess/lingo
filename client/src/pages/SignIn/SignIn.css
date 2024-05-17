@@ -9,13 +9,13 @@
     max-height: 200px;
 }
 
-.SignIn form {
+.SignIn .form {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--sm);
 }
 
-.SignIn form {
+.SignIn .form {
     width: 50%;
 }

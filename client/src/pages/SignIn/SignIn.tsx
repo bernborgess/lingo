@@ -26,7 +26,7 @@ import { useAuth } from '../../utils/context/AuthContext';
 
 export default function SignIn() {
     const [loginUser, setLoginUser] = React.useState<User>(emptyData);
-    const { signIn } = useAuth();
+    const { signIn} = useAuth();
     const navigate = useNavigate();
     
     function updateData(addNewUser: Partial<User>) {
@@ -36,7 +36,7 @@ export default function SignIn() {
     async function handleSubmit() {
         try {
             await signIn(loginUser);
-            navigate("/app")
+            navigate(`./app`);
         } 
         catch (err: any) {
             alert("NAO DEU!!");
@@ -46,7 +46,7 @@ export default function SignIn() {
     return (
         <div className='SignIn'>
             <img src={Lingo} />
-            <form>
+            <div className="form">
                 <h2><b>Login</b> to your account</h2>
                 <TextInput 
                     type="text" 
@@ -61,7 +61,7 @@ export default function SignIn() {
                     placeHolder='Password' icon={<LockIcon htmlColor='var(--green)' />} 
                 />
                 <Button onClick={handleSubmit} label="Login" />
-            </form>
+            </div>
             <Divider/>
             <div>
                 Don't have an account?    

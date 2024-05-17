@@ -28,7 +28,8 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   });
 
   const signIn = async ({ username, password }:   User) => {
-    await api.post("user/login", { username, password });
+    const res = await api.post("user/login", { username, password });
+    console.log(res);
     localStorage.setItem("isAuthenticated", "true"); 
   }
 
