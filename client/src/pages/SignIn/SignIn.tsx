@@ -39,7 +39,7 @@ export default function SignIn() {
             navigate(`./app`);
         } 
         catch (err: any) {
-            alert("NAO DEU!!");
+            alert(err.response.data);
         }
     }
 
