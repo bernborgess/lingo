@@ -1,9 +1,11 @@
-import './App.css'
 import LingoRoutes from './routes/LingoRoutes.tsx'
+import { AuthProvider } from './utils/context/AuthContext.tsx'
 
 function App() {
   return (
-    <LingoRoutes/>
+    <AuthProvider>
+      <LingoRoutes/>
+    </AuthProvider>
   )
 }
 
