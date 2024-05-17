@@ -4,6 +4,7 @@ import { Question as QuestionDB } from "@prisma/client";
 import { prisma } from "../../src/database/prismaClient";
 import { User } from "../../src/models/UserModel";
 import userService from "../../src/services/UserService";
+import { Question } from "../../src/utils/questionUtil";
 
 jest.mock("../../src/database/prismaClient", () => ({
     prisma: {
@@ -125,5 +126,27 @@ describe("getStatement returns a valid statement", () => {
         expect(question).toMatchObject(statement);
     })
 
+
+})
+
+describe("answerQuestion correctly grades and increases level", () => {
+
+    it("Denies user that did not reach the level", async () => {
+        const user: User = {
+            id: "userid",
+            currentLevel: 1,
+            currentQuestion: 1
+        } as User;
+
+        userService.getUserById = jest.fn().mockResolvedValue(user);
+
+        const q: Question = {} as Question;
+
+        await expect(questionService.answerQuestion(2, 1, user.id, q))
+            .rejects
+            .toThrow("User did not reach this level");
+    });
+
+    // TODO
 
 })
