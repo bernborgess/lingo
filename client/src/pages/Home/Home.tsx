@@ -1,9 +1,9 @@
-import { useUserData } from "../../utils/context/AuthContext";
+// import { useUserData } from "../../utils/context/AuthContext";
 
 export default function Home() {
-    const { userData } = useUserData();
+    // const { userData } = useUserData();
 
-    console.log(userData);
+    // console.log(userData);
     return (
         <div className='SignUp'>
             Home page

@@ -20,13 +20,13 @@ import { useNavigate } from 'react-router-dom';
 
 
 import {Divider, Link} from '@mui/material';
-import { useUserData } from '../../utils/context/AuthContext';
+import { useAuth } from '../../utils/context/AuthContext';
 
 
 
 export default function SignIn() {
     const [loginUser, setLoginUser] = React.useState<User>(emptyData);
-    const { signIn } = useUserData();
+    const { signIn } = useAuth();
     const navigate = useNavigate();
     
     function updateData(addNewUser: Partial<User>) {
@@ -34,8 +34,13 @@ export default function SignIn() {
     }
 
     async function handleSubmit() {
-        signIn(loginUser)
-        navigate("app")
+        try {
+            await signIn(loginUser);
+            navigate("/app")
+        } 
+        catch (err: any) {
+            alert("NAO DEU!!");
+        }
     }
 
     return (

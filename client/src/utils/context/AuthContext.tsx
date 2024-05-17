@@ -1,42 +1,62 @@
 import { createContext, useContext, useState } from "react";
+import { api } from "../../service/api";
 import { User, UserData } from '../types/user';
-import { login } from "../../service/User/login";
 
-interface PropsAuthContext {
-  userData: UserData | {};
-  signIn: (user:User) => void;
-  // signUp: () => void;
+
+
+interface AuthContextState {
+  user: UserData;
+  signIn({ username, password }:  User): Promise<void>;
+  userLogged(): Promise<UserData | false>;
 }
 
-const AuthContext = createContext<PropsAuthContext | undefined>(undefined);
+const AuthContext = createContext<AuthContextState>({} as AuthContextState);
 
 type Props = {
-  children: React.ReactNode
-}
-
+  children: React.ReactNode;
+};
 const AuthProvider: React.FC<Props> = ({ children }) => {
-  const [userData, setUserData] = useState({} as UserData);
+  const [user, setUser] = useState<UserData>(() => {
+    const user = localStorage.getItem("user");
 
-  function signIn(user: User) {
-    login(user);
+    if (user) {
+      const userAsJson = JSON.parse(user);
+      return userAsJson;
+    }
+
+    return {};
+  });
+
+  const signIn = async ({ username, password }:   User) => {
+    await api.post("user/login", { username, password });
+    localStorage.setItem("isAuthenticated", "true"); 
   }
 
-  const dataState = {
-    userData,
-    setUserData,
-    signIn
+
+  const userLogged = async function (): Promise<UserData | false> {
+    try {
+      const res = await api.get("user/login");
+      let maybeUser = res.data;
+      setUser(maybeUser);
+
+      localStorage.setItem("user", JSON.stringify(maybeUser));
+      return maybeUser as UserData;
+    } catch (err: any) {
+      return false;
+    }
   };
 
-  return (
-    <AuthContext.Provider value={dataState}>{children}</AuthContext.Provider>
-  );
+  let values: AuthContextState = {
+    user,
+    signIn,
+    userLogged
+  };
+
+  return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 
-function useUserData() {
+function useAuth(): AuthContextState {
   const context = useContext(AuthContext);
-  if (context === undefined)
-    throw new Error("useUserData must be within AuthProvider")
   return context;
 }
-
-export { AuthProvider, useUserData };
+export { AuthProvider, useAuth };
