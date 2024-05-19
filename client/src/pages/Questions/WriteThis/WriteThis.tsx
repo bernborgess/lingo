@@ -1,14 +1,14 @@
 import './WriteThis.css';
 
 import lily from '../../../assets/characters/lily.svg'
-import SpeechBubble from '../../../components/SpeechBubble/SpeechBubble';
-import Chip from '../../../components/Chip/Chip';
+import SpeechBubble from '../../../utils/components/SpeechBubble/SpeechBubble';
+import Chip from '../../../utils/components/Chip/Chip';
 import { useWriteThis } from './hooks/useWriteThis';
-import QuestionSubmitButton from '../../../components/QuestionSubmitButton/QuestionSubmitButton';
+import QuestionSubmitButton from '../../../utils/components/QuestionStatustButton/QuestionStatusButton';
 
 export default function WriteThis() {
 
-    const { options, selectedWords, answerStatus, handleSelectWord, handleRemoveWord, submitAnswer } = useWriteThis();
+    const { disabled, options, selectedWords, answerStatus, handleSelectWord, handleRemoveWord, submitAnswer } = useWriteThis();
 
 
 
@@ -25,7 +25,7 @@ export default function WriteThis() {
             <div className='optionsWordsArea'>
                 {options.map((word) => <Chip label={word.label} key={word.id} onClick={() => handleSelectWord(word.id)} isSelected={word.isSelected} />)}
             </div>
-            <QuestionSubmitButton status={answerStatus} onClick={submitAnswer} />
+            <QuestionSubmitButton showSubmitButton disabled={disabled} status={answerStatus} onClick={submitAnswer} />
         </div>
     )
 }

@@ -3,7 +3,7 @@ type TButtonProps = {
     onClick: (arg: any) => void;
     label: string;
     disabled?: boolean;
-    variant?: 'primary' | 'danger'
+    variant?: 'primary' | 'secondary' | 'danger'
 }
 
 const Button = (props: TButtonProps) => {

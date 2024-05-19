@@ -1,4 +1,4 @@
-.QuestionSubmitButton{  
+.QuestionStatusButton{  
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -8,22 +8,22 @@
     padding-bottom: var(--sm);
     
 }   
-.QuestionSubmitButton h2{
+.QuestionStatusButton h2{
     color: var(--dark-green);
     font-weight: 800;
     margin-bottom: var(--xs);
 }
 
-.QuestionSubmitButton h2.variant-danger{
+.QuestionStatusButton h2.variant-danger{
     color: var(--red);
     font-weight: 800;
     margin-bottom: var(--xs);
 }
 
-.QuestionSubmitSuccess {
+.QuestionStatusSuccess {
     background-color: var(--light-green);
 }
 
-.QuestionSubmitFail {
+.QuestionStatusFail {
     background-color: var(--light-red);
 }
