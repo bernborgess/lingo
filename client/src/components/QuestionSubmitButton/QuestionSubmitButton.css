@@ -1,18 +1,29 @@
-.QuestionSubmitButton{
-    border: 1px solid green;
+.QuestionSubmitButton{  
     width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: end;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
     height: var(--xxlg);
     padding-bottom: var(--sm);
-
+    
 }   
+.QuestionSubmitButton h2{
+    color: var(--dark-green);
+    font-weight: 800;
+    margin-bottom: var(--xs);
+}
+
+.QuestionSubmitButton h2.variant-danger{
+    color: var(--red);
+    font-weight: 800;
+    margin-bottom: var(--xs);
+}
 
 .QuestionSubmitSuccess {
-    background-color: var(--green);
+    background-color: var(--light-green);
 }
 
 .QuestionSubmitFail {
-    background-color: var(--red);
+    background-color: var(--light-red);
 }

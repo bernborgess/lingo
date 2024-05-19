@@ -1,13 +1,14 @@
 import './Button.css'
 type TButtonProps = {
-    onClick: (arg:any) => void;
+    onClick: (arg: any) => void;
     label: string;
-    disabled?:boolean;
+    disabled?: boolean;
+    variant?: 'primary' | 'danger'
 }
 
-const Button = (props:TButtonProps) => {
-    const {onClick, label, disabled} = props;
-    return (<button className={disabled ? 'disabled-btn': ''} disabled={disabled} onClick={onClick}>{label}</button>)
+const Button = (props: TButtonProps) => {
+    const { onClick, label, disabled, variant = 'primary' } = props;
+    return (<button className={(disabled ? 'disabled-btn' : '') + ' variant-' + variant} disabled={disabled} onClick={onClick}>{label}</button>)
 }
 
 export { Button }

@@ -4,12 +4,12 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--sm);
-    border: 1px solid red;
     height: 100vh;
 }
 
 .WriteThis div {
     display: flex;
+    align-items: center;
 }
 
 .selectedWordsArea {
