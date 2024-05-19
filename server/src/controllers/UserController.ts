@@ -9,6 +9,16 @@ class UserController {
         res.json(users);
     }
 
+    whoami = async (req: Request, res: Response) => {
+        try {
+            const { id } = res.locals.user;
+            const user = await userService.getUserById(id);
+            res.json(user);
+        } catch (error: any) {
+            res.status(400).json(error.message);
+        }
+    }
+
     create = async (req: Request, res: Response) => {
         try {
             const { username, email, password } = req.body;

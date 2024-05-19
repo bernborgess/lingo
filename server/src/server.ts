@@ -21,6 +21,11 @@ app.use(cookieParser());
 app.use(cors());
 app.use(helmet());
 
+// Middleware to log requests
+app.use((req, res, next) => {
+    console.log(`Received ${req.method} request for ${req.url}`);
+    next();
+});
 app.use(mainRouter);
 
 app.listen(PORT, () => {
