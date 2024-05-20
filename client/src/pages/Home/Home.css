@@ -1,8 +1,27 @@
-.Home {
-    border: 1px solid red;
+.Levels {
+    width: var(--xxlg);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+}
+
+.Levels div:nth-child(odd){
+    align-self: flex-end;
+}
+.Levels div:nth-child(even){
+    align-self: flex-start;
+}
+
+.Home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--lg);
+}
+
+.Home > img {
+    width: 200px;
+    height: 200px;
 }
