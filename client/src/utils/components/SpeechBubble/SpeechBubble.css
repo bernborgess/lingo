@@ -1,0 +1,22 @@
+.SpeechBubble {
+    border: 2px solid var(--dark-grey);
+    width: fit-content;
+    height: fit-content;
+    padding: var(--xs);
+    border-radius: var(--xs);
+
+    display: flex;
+    align-items: center;
+}
+
+.SpeechBubble span {
+    border: 2px solid;
+    border-color: transparent transparent var(--dark-grey) var(--dark-grey);
+    background-color: var(--white);
+    width: var(--xs);
+    height: var(--xs);
+    rotate: 45deg;
+
+    position: relative;
+    left: -14px;
+}

@@ -1,0 +1,15 @@
+.MultipleChoice {
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: var(--lg); 
+}
+.MultipleChoice h1{
+    width: 70%;
+    padding: var(--lg);
+    font-weight: 800;
+}

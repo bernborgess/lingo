@@ -1,8 +1,9 @@
 button {
-    height: 50px;
+    height: var(--xlg);
     min-width: 375px;
     border-radius: 12px;
     border: none;
+    border-bottom: 4px solid var(--dark-green);
     color: var(--white);
     background-color: var(--green);
 
@@ -15,4 +16,35 @@ button:active {
 
 button:hover {
     cursor: pointer;
+}
+
+button.disabled-btn{
+    color: var(--dark-grey);
+    border-color: var(--dark-grey);
+    background-color: var(--grey);
+    cursor: default;
+}
+
+button.variant-danger {
+    color: var(--dark-red);
+    background-color: var(--red);
+    border-color: var(--dark-red);
+}
+
+button.variant-secondary {
+    background-color: white;
+    color: var(--black);
+    border-top: 1px solid var(--dark-grey);
+    border-left: 1px solid var(--dark-grey);
+    border-right: 1px solid var(--dark-grey);
+    border-bottom: 4px solid var(--dark-grey);
+}
+
+button.variant-secondary:active {
+    background-color: var(--light-blue);
+    color: var(--blue);
+    border-top: 1px solid var(--blue);
+    border-left: 1px solid var(--blue);
+    border-right: 1px solid var(--blue);
+    border-bottom: 4px solid var(--blue);
 }

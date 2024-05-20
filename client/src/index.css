@@ -1,17 +1,26 @@
 :root {
     --white: #ffffff;
-    --blue: #A6E3FF;
-    --light-green: #58CC02;
+    --light-blue: #A6E3FF;
+    --blue: #29A0DA;
+    --light-green: #D7FFB8;
     --green: #58CC02;
     --dark-green: #429403;
     --yellow: #FFC800;
+    --light-red: #ffbfbf;
     --red: #FC4848;
+    --dark-red: #ff0000;
+    --light-grey: #E5E5E5;
     --grey: #F9F9F9;
     --dark-grey: #A9A9A9;
+    --black: #000;
 
+    --xxs: 2px;
+    --xs: 8px;
     --sm: 16px;
     --md: 20px;
     --lg: 28px;
+    --xlg: 50px;
+    --xxlg: 100px;
 }
 
 * {
@@ -19,7 +28,12 @@
     font-optical-sizing: auto;
     font-weight: 400; /*200 to 1000*/
     font-style: normal;
+    margin: 0;
+    padding: 0;
 }
 b {
     font-weight: 800;
+}
+body {
+    min-height: 100vh;
 }

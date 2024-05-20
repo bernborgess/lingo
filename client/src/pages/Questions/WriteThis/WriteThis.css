@@ -1,0 +1,28 @@
+.WriteThis {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sm);
+    height: 100vh;
+}
+
+.WriteThis div {
+    display: flex;
+    align-items: center;
+}
+
+.selectedWordsArea {
+    min-width: 50%;
+    margin-bottom: var(--xs);
+    min-height: 2rem;
+    padding-bottom: var(--xxs);
+    border-bottom: 1px solid var(--dark-grey);
+    display: flex;
+    gap: var(--xxs);
+}
+
+.optionsWordsArea {
+    display: flex;
+    gap: var(--xxs);
+}
