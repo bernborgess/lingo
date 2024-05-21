@@ -15,11 +15,16 @@ const PORT = parseInt(process.env.PORT || "3000", 10);
 const app = express();
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(cors(
+    {
+        origin: [process.env.APP_URL || "http://127.0.0.1:5173"],
+        credentials: true
+    }
+));
 app.use(cookieParser());
-app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
+app.use(express.json());
 
 // Middleware to log requests
 app.use((req, res, next) => {

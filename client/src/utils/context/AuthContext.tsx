@@ -1,13 +1,13 @@
 import { createContext, useContext, useState } from "react";
 import { api } from "../../service/api";
-import { User, UserData } from '../types/user';
+import { User, UserData, emptyUserData } from '../types/user';
 
 
 
 interface AuthContextState {
-  user: UserData;
+  user: UserData | null;
   signIn({ username, password }:  User): Promise<void>;
-  userLogged(): Promise<UserData | false>;
+  getUser(): Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextState>({} as AuthContextState);
@@ -16,41 +16,29 @@ type Props = {
   children: React.ReactNode;
 };
 const AuthProvider: React.FC<Props> = ({ children }) => {
-  const [user, setUser] = useState<UserData>(() => {
-    const user = localStorage.getItem("user");
-
-    if (user) {
-      const userAsJson = JSON.parse(user);
-      return userAsJson;
-    }
-
-    return {};
-  });
+  const [user, setUser] = useState<UserData | null>(null);
 
   const signIn = async ({ username, password }:   User) => {
     const res = await api.post("user/login", { username, password });
     console.log(res);
-    localStorage.setItem("isAuthenticated", "true"); 
   }
 
-
-  const userLogged = async function (): Promise<UserData | false> {
+  const getUser = async () => {
     try {
-      const res = await api.get("user/login");
-      let maybeUser = res.data;
-      setUser(maybeUser);
-
-      localStorage.setItem("user", JSON.stringify(maybeUser));
-      return maybeUser as UserData;
-    } catch (err: any) {
-      return false;
+    const res = await api.get("user");
+    console.log(res);
+    const data = res.data;
+    setUser(data);
+    } catch (err) {
+      console.log(err);
+      setUser(emptyUserData);
     }
-  };
+  }
 
-  let values: AuthContextState = {
+  const values: AuthContextState = {
     user,
     signIn,
-    userLogged
+    getUser,
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

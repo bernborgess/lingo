@@ -16,5 +16,15 @@ export interface NewUser extends User {
 
 export interface UserData extends Omit<NewUser, 'password'> {
     id: string,
-    currentLevel: number
+    email: string,
+    currentLevel: number,
+    currentQuestion: number
+}
+
+export const emptyUserData = {
+    id: "",
+    username: "",
+    email: "",
+    currentLevel: 0,
+    currentQuestion: 0
 }
