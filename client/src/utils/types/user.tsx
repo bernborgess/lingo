@@ -10,6 +10,11 @@ export const emptyData = {
     email: ""
 }
 
+export const emptyDataUser = {
+    username: "",
+    password: "",
+}
+
 export interface NewUser extends User {
     email: string,
 }

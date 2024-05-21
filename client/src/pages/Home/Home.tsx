@@ -4,34 +4,20 @@ import './Home.css'
 
 import LingoPointLeft from '../../assets/LingoPointLeft.svg'
 import React from "react";
-import { getAllUser } from "../../service/User/getAllUser";
 export default function Home() {
     const { getUser, user } = useAuth();
 
-    // React.useEffect(() => {
+    React.useEffect(() => {
         const fetch = async () => {
           try {
             await getUser();
-            console.log("OLHA O USER");
-            console.log(user);
           } catch (err) {
             console.log(err);
           }
         }
-        // fetch();
-    // }, []);
-
-    async function blablaDoBE(){
-        try {
-          await getAllUser();
-          console.log("OLHA OS USERS");
-          console.log(user);
-        } catch (err) {
-          console.log(err);
-        }
-      }
-
-
+        fetch();
+      }, []);
+      
     function handleSelectLevel(id:number) {
         console.log('Level'+ id)
     }
@@ -40,12 +26,11 @@ export default function Home() {
     return (
         <div className='Home'>
             <div className='Levels'>
+                <h1>{JSON.stringify(user)}</h1>
                 <LevelButton onClick={() => handleSelectLevel(1)}/>
                 {levels.map((level) => <LevelButton enable={false} onClick={() => handleSelectLevel(level)}/>)}
             </div>
             <img src={LingoPointLeft} alt="LingoPointLeft" />
-            {/* <LevelButton onClick={() => fetch()}/> */}
-            <LevelButton onClick={() => blablaDoBE()}/>
         </div>
     )
 }
