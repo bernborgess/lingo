@@ -23,6 +23,25 @@ class QuestionController {
         }
     }
 
+    answerQuestion = async (req: Request, res: Response) => {
+        try {
+            const { levelSeq, questionSeq } = req.params;
+            const { answer } = req.body;
+
+            if (isNaN(Number(levelSeq)) || isNaN(Number(questionSeq))) {
+                throw new Error("Parameters must be numeric");
+            }
+
+            const { id } = res.locals.user;
+
+            const is_correct = await questionService.answerQuestion(Number(levelSeq), Number(questionSeq), id, answer);
+            res.json({ is_correct });
+
+        } catch (error: any) {
+            res.status(400).json(error.message);
+        }
+    }
+
 }
 
 export default new QuestionController();
