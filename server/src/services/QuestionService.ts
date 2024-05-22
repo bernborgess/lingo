@@ -72,7 +72,7 @@ class QuestionService {
         const questionCount = level._count.questions;
 
         // Last question of level
-        if (sequence + 1 === questionCount) {
+        if (sequence === questionCount) {
             user.currentLevel++;
             user.currentQuestion = 1;
         }
