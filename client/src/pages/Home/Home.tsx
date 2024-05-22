@@ -3,20 +3,18 @@ import LevelButton from '../../utils/components/LevelButton/LevelButton'
 import './Home.css'
 
 import LingoPointLeft from '../../assets/LingoPointLeft.svg'
-import React, { useState } from "react";
-// import { getLevels } from "../../service/Levels/getLevels";
-// import { Levels, initialLevels } from "../../utils/types/levels";
+import React from "react";
+import { getCountQuestions } from "../../service/Levels/getCountQuestions";
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
-    const { getUser, user } = useAuth();
-    // const [levels, setLevels] = useState<Levels>(initialLevels);
+  const { getUser, user } = useAuth();
+  const navigate = useNavigate();
 
     React.useEffect(() => {
         const fetch = async () => {
           try {
             await getUser();
-            // let levelsBack = await getLevels();
-            // setLevels(levelsBack);
           } catch (err) {
             console.log(err);
           }
@@ -25,15 +23,14 @@ export default function Home() {
       }, []);
       
     function handleSelectLevel(id:number) {
-        console.log('Level'+ id)
+      getCountQuestions(id);
+      navigate("./Questions")
     }
 
-    const levels = [2,3,4,5]
+    const levels = [1,2,3,4,5]
     return (
         <div className='Home'>
             <div className='Levels'>
-                {/* <h1>{JSON.stringify(user)}</h1> */}
-                <LevelButton onClick={() => handleSelectLevel(1)}/>
                 {levels.map((level) => <LevelButton enable={user?.currentLevel == level} onClick={() => handleSelectLevel(level)}/>)}
             </div>
             <img src={LingoPointLeft} alt="LingoPointLeft" />
