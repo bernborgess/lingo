@@ -12,7 +12,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 
 
-import { User, emptyData } from "../../utils/types/user";
+import { User, emptyDataUser } from "../../utils/types/user";
 
 
 import React from 'react';
@@ -25,7 +25,7 @@ import { useAuth } from '../../utils/context/AuthContext';
 
 
 export default function SignIn() {
-    const [loginUser, setLoginUser] = React.useState<User>(emptyData);
+    const [loginUser, setLoginUser] = React.useState<User>(emptyDataUser);
     const { signIn} = useAuth();
     const navigate = useNavigate();
     
@@ -35,6 +35,8 @@ export default function SignIn() {
 
     async function handleSubmit() {
         try {
+            console.log("ACIONEI O BOTAO");
+            console.log(loginUser);
             await signIn(loginUser);
             navigate(`./app`);
         } 
