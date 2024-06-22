@@ -1,7 +1,8 @@
 import { useCallback, useMemo, useState } from "react";
 import { AnswerOrdering } from "../../../../utils/types/question";
 import { answerQuestion } from "../../../../service/Question/answerQuestion";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useGoToNextQuestion } from "../../hooks/useGoToNextQuestion";
 
 type TWord = {
     label: string;
@@ -13,8 +14,8 @@ type TOptions = TWord[]
 
 export function useOrdering(apiOptions: string[]) {
 
-    const {level, sequence} = useParams();
-    const navigate = useNavigate();
+    const { level, sequence } = useParams();
+    const { goToNextQuestion } = useGoToNextQuestion();
     const initialOptions = apiOptions.map((opt, index) => ({ id: index + 1, label: opt, isSelected: false }))
     const [options, setOptions] = useState<TOptions>(initialOptions);
     const [selectedWords, setSelectedWords] = useState<TOptions>([]);
@@ -58,20 +59,18 @@ export function useOrdering(apiOptions: string[]) {
     }, [selectedWords, options])
 
     const submitAnswer = useCallback(async () => {
-        if (answerStatus === 'success') {
-            const nextSequence = parseInt(sequence ?? '') + 1
-            navigate(`/app/Questions/level/${level}/sequence/${nextSequence}`)
-        }
+        if (answerStatus === 'success')
+            goToNextQuestion();
 
 
-        const answer = selectedWords.map(({label}) => (label))
+        const answer = selectedWords.map(({ label }) => (label))
         const body: AnswerOrdering = {
             type: "Ordering",
             answer: answer
         }
-        
+
         const isCorrect = await answerQuestion(level ?? '', sequence ?? '', body);
-        
+
         // envia resposta
         if (isCorrect.is_correct) {
             setAnswerStatus('success');

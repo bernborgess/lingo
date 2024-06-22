@@ -1,8 +1,8 @@
-import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../../../utils/components/Button'
 import QuestionSubmitButton from '../../../utils/components/QuestionStatustButton/QuestionStatusButton';
 import './MultipleChoice.css'
 import useMultipleChoice from './useMultipleChoice/useMultipleChoice';
+import { useGoToNextQuestion } from '../hooks/useGoToNextQuestion';
 
 
 
@@ -12,15 +12,12 @@ type propsType = {
 }
 
 export default function MultipleChoice({phrase, options}:propsType) {
-    const {level, sequence} = useParams();
-    const navigate = useNavigate();
+    const {goToNextQuestion} = useGoToNextQuestion();
     const { handleSelectAnswer,  formStatus} = useMultipleChoice(phrase, options);
 
     function nextQuestion() {
-        if (formStatus === 'success') {
-            const nextSequence = parseInt(sequence ?? '') + 1
-            navigate(`/app/Questions/level/${level}/sequence/${nextSequence}`)
-        }
+        if (formStatus === 'success')
+            goToNextQuestion();
     }
 
     return (
