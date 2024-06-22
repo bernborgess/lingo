@@ -1,30 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../../service/api";
-import { useAuth } from "../../../utils/context/AuthContext";
-
-export interface Statement {
-    type: "MultipleChoice" | "Ordering"
-    phrase: string;
-    options: string[];
-}
-
-interface AnswerMultipleChoice {
-    type: "MultipleChoice";
-    answerId: number;
-}
-
-interface AnswerOrdering {
-    type: "Ordering";
-    answer: string[];
-}
-
-export type Answer = AnswerMultipleChoice | AnswerOrdering;
-
-export type QuestionMultipleChoice = Statement & AnswerMultipleChoice;
-
-export type QuestionOrdering = Statement & AnswerOrdering;
-
-export type Question = QuestionMultipleChoice | QuestionOrdering
+import { Question } from "../../../utils/types/question";
 
 export function useGetQuestion(level:number, sequence:number):Question | undefined {
     const [question, setQuestion] = useState<Question>();
@@ -35,7 +11,7 @@ export function useGetQuestion(level:number, sequence:number):Question | undefin
         .then((res) => {
             setQuestion(res.data);
         })
-    }, [])
+    }, [level, sequence])
 
     return question;
 }

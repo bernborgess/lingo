@@ -1,4 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { AnswerOrdering } from "../../../../utils/types/question";
+import { answerQuestion } from "../../../../service/Question/answerQuestion";
+import { useNavigate, useParams } from "react-router-dom";
 
 type TWord = {
     label: string;
@@ -8,42 +11,12 @@ type TWord = {
 
 type TOptions = TWord[]
 
-const mock: TOptions = [
-    {
-        id: 0,
-        label: "Are",
-        isSelected: false
-    },
-    {
-        id: 1,
-        label: "you",
-        isSelected: false
-    },
-    {
-        id: 2,
-        label: "a",
-        isSelected: false
-    },
-    {
-        id: 3,
-        label: "cat",
-        isSelected: false
-    },
-    {
-        id: 4,
-        label: "dog",
-        isSelected: false
-    },
-    {
-        id: 5,
-        label: "goat",
-        isSelected: false
-    },
-]
+export function useOrdering(apiOptions: string[]) {
 
-export function useOrdering(apiOptions:string[]) {
-    
-    const [options, setOptions] = useState<TOptions>([]);
+    const {level, sequence} = useParams();
+    const navigate = useNavigate();
+    const initialOptions = apiOptions.map((opt, index) => ({ id: index + 1, label: opt, isSelected: false }))
+    const [options, setOptions] = useState<TOptions>(initialOptions);
     const [selectedWords, setSelectedWords] = useState<TOptions>([]);
     const [answerStatus, setAnswerStatus] = useState<'success' | 'fail' | undefined>();
 
@@ -84,32 +57,32 @@ export function useOrdering(apiOptions:string[]) {
         }
     }, [selectedWords, options])
 
-    const submitAnswer = useCallback(() => {
+    const submitAnswer = useCallback(async () => {
         if (answerStatus === 'success') {
-            // vai p/ proxima questão
-            alert('proxima questão!')
+            const nextSequence = parseInt(sequence ?? '') + 1
+            navigate(`/app/Questions/level/${level}/sequence/${nextSequence}`)
         }
 
+
+        const answer = selectedWords.map(({label}) => (label))
+        const body: AnswerOrdering = {
+            type: "Ordering",
+            answer: answer
+        }
+        
+        const isCorrect = await answerQuestion(level ?? '', sequence ?? '', body);
+        
         // envia resposta
-        if (Math.random() > 0.5) {
+        if (isCorrect.is_correct) {
             setAnswerStatus('success');
         }
         else {
             setAnswerStatus('fail');
-            
         }
 
     }, [selectedWords, answerStatus])
 
     const disabled = useMemo(() => !selectedWords.length, [selectedWords.length]);
-
-    useEffect(() => {
-        const initialOptions = apiOptions.map((opt, index) => ({id: index + 1, label: opt, isSelected: false}))
-        setOptions(initialOptions);
-        console.log(initialOptions);
-        console.log(apiOptions);
-        
-    }, [])
 
     return {
         disabled,
