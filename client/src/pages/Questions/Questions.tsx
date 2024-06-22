@@ -7,7 +7,8 @@ export default function Questions() {
 
     const { level, sequence } = useParams();
     const question = useGetQuestion(parseInt(level ?? ''), parseInt(sequence ?? ''));
-
+    console.log(question);
+    
     const renderQuestion = () => {
         if (question?.type === 'MultipleChoice') {
         return  <MultipleChoice phrase={question?.phrase} options={question?.options} />

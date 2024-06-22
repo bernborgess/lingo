@@ -1,22 +1,31 @@
-import { useCallback, useMemo, useState } from "react";
-import { api } from "../../../../service/api";
-
-
+import { useCallback, useState } from "react";
+import { answerQuestion } from "../../../../service/Question/answerQuestion";
+import { AnswerMultipleChoice } from "../../../../utils/types/question";
+import { useParams } from "react-router-dom";
 
 export default function useMultipleChoice(phrase:string, answers:string[]) {
     
+    const {level, sequence} = useParams();
     const [selectedAnswer, setSelectedAnswer] = useState<number>()
-    
-    const formStatus:'success'|'fail'|undefined = useMemo(() => {
-        if (selectedAnswer === undefined) return undefined;
-        // else if (selectedAnswer === rightAnswer) return 'success'
-        // return 'fail';
-        api.post('/level/')
+    const [formStatus, setFormStatus] = useState<'success'|'fail'|undefined>()
 
-    }, [selectedAnswer])
-
-    const handleSelectAnswer = useCallback((id:number) => {
+    const handleSelectAnswer = useCallback(async (id:number) => {
         setSelectedAnswer(id);
+        const body:AnswerMultipleChoice = {
+            type: 'MultipleChoice',
+            answerId: id,
+        }
+        console.log({body});
+        
+        const response = await answerQuestion(level ?? '', sequence ?? '', body);
+        const isCorrect = response.is_correct;
+        if (isCorrect) {
+            setFormStatus('success');
+        }
+        else {
+            setFormStatus('fail');
+        }
+
     }, [setSelectedAnswer, selectedAnswer])
 
 
