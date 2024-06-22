@@ -26,7 +26,7 @@ class QuestionController {
     answerQuestion = async (req: Request, res: Response) => {
         try {
             const { levelSeq, questionSeq } = req.params;
-            const { answer } = req.body;
+            const  requestBody  = req.body;
 
             if (isNaN(Number(levelSeq)) || isNaN(Number(questionSeq))) {
                 throw new Error("Parameters must be numeric");
@@ -34,7 +34,7 @@ class QuestionController {
 
             const { id } = res.locals.user;
 
-            const is_correct = await questionService.answerQuestion(Number(levelSeq), Number(questionSeq), id, answer);
+            const is_correct = await questionService.answerQuestion(Number(levelSeq), Number(questionSeq), id, requestBody);
             res.json({ is_correct });
 
         } catch (error: any) {

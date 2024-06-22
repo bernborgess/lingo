@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 type TWord = {
     label: string;
@@ -41,9 +41,9 @@ const mock: TOptions = [
     },
 ]
 
-
-export function useWriteThis() {
-    const [options, setOptions] = useState<TOptions>(mock);
+export function useOrdering(apiOptions:string[]) {
+    
+    const [options, setOptions] = useState<TOptions>([]);
     const [selectedWords, setSelectedWords] = useState<TOptions>([]);
     const [answerStatus, setAnswerStatus] = useState<'success' | 'fail' | undefined>();
 
@@ -102,6 +102,14 @@ export function useWriteThis() {
     }, [selectedWords, answerStatus])
 
     const disabled = useMemo(() => !selectedWords.length, [selectedWords.length]);
+
+    useEffect(() => {
+        const initialOptions = apiOptions.map((opt, index) => ({id: index + 1, label: opt, isSelected: false}))
+        setOptions(initialOptions);
+        console.log(initialOptions);
+        console.log(apiOptions);
+        
+    }, [])
 
     return {
         disabled,

@@ -1,25 +1,22 @@
 import { useCallback, useMemo, useState } from "react";
+import { api } from "../../../../service/api";
 
 
 
-export default function useMultipleChoice() {
-    
-    const phrase = 'Qual a tradução de "dog"?';
-    const answers = ['gato', 'cachorro', 'pássaro'];
-    const rightAnswer = 1;
+export default function useMultipleChoice(phrase:string, answers:string[]) {
     
     const [selectedAnswer, setSelectedAnswer] = useState<number>()
     
     const formStatus:'success'|'fail'|undefined = useMemo(() => {
         if (selectedAnswer === undefined) return undefined;
-        else if (selectedAnswer === rightAnswer) return 'success'
-        return 'fail';
-    }, [answers])
+        // else if (selectedAnswer === rightAnswer) return 'success'
+        // return 'fail';
+        api.post('/level/')
+
+    }, [selectedAnswer])
 
     const handleSelectAnswer = useCallback((id:number) => {
-        if (selectedAnswer !== rightAnswer) {
-            setSelectedAnswer(id);
-        }
+        setSelectedAnswer(id);
     }, [setSelectedAnswer, selectedAnswer])
 
 

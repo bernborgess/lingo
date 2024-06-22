@@ -83,6 +83,6 @@ questionRouter.get("/:questionSeq", isLoggedIn, QuestionController.getStatement)
  *          400:
  *              description: User did not reach this level or question or one of them was not found
  */
-questionRouter.post("/:questionSeq", isLoggedIn, QuestionController.answerQuestion);
+questionRouter.post("/:questionSeq/grade", isLoggedIn, QuestionController.answerQuestion);
 
 export { questionRouter };
