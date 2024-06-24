@@ -26,13 +26,17 @@ export default function useMultipleChoice(phrase:string, answers:string[]) {
             setFormStatus('fail');
         }
 
-    }, [setSelectedAnswer, selectedAnswer])
+    }, [setSelectedAnswer, selectedAnswer, level, sequence])
 
+    const resetFormStatus = useCallback(() => {
+        setFormStatus(undefined);
+    },[])
 
     return {
         formStatus,
         phrase,
         answers,
-        handleSelectAnswer
+        handleSelectAnswer,
+        resetFormStatus
     }
 }

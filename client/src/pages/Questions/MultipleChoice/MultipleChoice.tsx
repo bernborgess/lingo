@@ -13,11 +13,13 @@ type propsType = {
 
 export default function MultipleChoice({phrase, options}:propsType) {
     const {goToNextQuestion} = useGoToNextQuestion();
-    const { handleSelectAnswer,  formStatus} = useMultipleChoice(phrase, options);
+    const { handleSelectAnswer,  formStatus, resetFormStatus} = useMultipleChoice(phrase, options);
 
     function nextQuestion() {
-        if (formStatus === 'success')
+        if (formStatus === 'success'){
             goToNextQuestion();
+            resetFormStatus();
+        }
     }
 
     return (

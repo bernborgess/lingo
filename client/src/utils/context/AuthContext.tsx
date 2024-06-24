@@ -19,7 +19,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<UserData | null>(null);
 
   const signIn = async ({ username, password }:   User) => {
-    await api.post("user/login", { username, password });
+    await api.post("user/login", { username, password }).then(getUser);
   }
 
   const getUser = async () => {

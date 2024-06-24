@@ -13,16 +13,16 @@ export default function Home() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  function handleSelectLevel(level: number, sequence:number) {
+  function handleSelectLevel(level: string, sequence:number) {
     getCountQuestions(level);
     navigate(`./Questions/level/${level}/sequence/${sequence}`)
   }
-
+  
   const levels = useGetLevels();
   return (
     <div className='Home'>
       <div className='Levels'>
-        {levels.map((level, i) => <LevelButton key={i} enable={user == null ? false : user.currentLevel >= level} onClick={() => handleSelectLevel(level, 1)} />)}
+        {levels.map((level, i) => <LevelButton key={i} enable={user == null ? false : user.currentLevel >= level} onClick={() => handleSelectLevel(String(level), 1)} />)}
       </div>
       <img src={LingoPointLeft} alt="LingoPointLeft" />
     </div>
