@@ -16,7 +16,7 @@ class UserService {
     }
 
     getUserById = async (id: string): Promise<User> => {
-        const user_with_password =
+        let user_with_password =
             await prisma.user.findFirst({ where: { id } });
 
         if (!user_with_password) {

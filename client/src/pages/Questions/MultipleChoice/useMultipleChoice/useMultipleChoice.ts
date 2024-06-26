@@ -1,32 +1,42 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
+import { answerQuestion } from "../../../../service/Question/answerQuestion";
+import { AnswerMultipleChoice } from "../../../../utils/types/question";
+import { useParams } from "react-router-dom";
 
-
-
-export default function useMultipleChoice() {
+export default function useMultipleChoice(phrase:string, answers:string[]) {
     
-    const phrase = 'Qual a tradução de "dog"?';
-    const answers = ['gato', 'cachorro', 'pássaro'];
-    const rightAnswer = 1;
-    
+    const {level, sequence} = useParams();
     const [selectedAnswer, setSelectedAnswer] = useState<number>()
-    
-    const formStatus:'success'|'fail'|undefined = useMemo(() => {
-        if (selectedAnswer === undefined) return undefined;
-        else if (selectedAnswer === rightAnswer) return 'success'
-        return 'fail';
-    }, [answers])
+    const [formStatus, setFormStatus] = useState<'success'|'fail'|undefined>()
 
-    const handleSelectAnswer = useCallback((id:number) => {
-        if (selectedAnswer !== rightAnswer) {
-            setSelectedAnswer(id);
+    const handleSelectAnswer = useCallback(async (id:number) => {
+        setSelectedAnswer(id);
+        const body:AnswerMultipleChoice = {
+            type: 'MultipleChoice',
+            answerId: id,
         }
-    }, [setSelectedAnswer, selectedAnswer])
+        console.log({body});
+        
+        const response = await answerQuestion(level ?? '', sequence ?? '', body);
+        const isCorrect = response.is_correct;
+        if (isCorrect) {
+            setFormStatus('success');
+        }
+        else {
+            setFormStatus('fail');
+        }
 
+    }, [setSelectedAnswer, selectedAnswer, level, sequence])
+
+    const resetFormStatus = useCallback(() => {
+        setFormStatus(undefined);
+    },[])
 
     return {
         formStatus,
         phrase,
         answers,
-        handleSelectAnswer
+        handleSelectAnswer,
+        resetFormStatus
     }
 }
