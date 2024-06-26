@@ -65,26 +65,34 @@ class QuestionService {
                 }
             }
         });
+
+
+
         if (!level) {
             throw new Error("Level not found!");
         }
 
         const questionCount = level._count.questions;
 
-        // Last question of level
-        if (sequence === questionCount) {
-            user.currentLevel++;
-            user.currentQuestion = 1;
+        if(levelSequence === user.currentLevel) {
+            // Last question of level
+            if (sequence === questionCount) {
+                user.currentLevel++;
+                user.currentQuestion = 1;
+            }
+            else {
+                user.currentQuestion++;
+            }
+    
+            // Store user changes
+            await prisma.user.update({
+                where: { id: userId },
+                data: {
+                    currentLevel: user.currentLevel,
+                    currentQuestion: user.currentQuestion
+                }
+            });
         }
-        else {
-            user.currentQuestion++;
-        }
-
-        // Store user changes
-        prisma.user.update({
-            where: { id: userId },
-            data: user
-        });
 
         return true;
     }

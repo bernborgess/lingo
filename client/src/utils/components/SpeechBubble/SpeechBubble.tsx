@@ -1,10 +1,10 @@
 import './SpeechBubble.css';
 
-export default function SpeechBubble() {
+export default function SpeechBubble({text}:{text:string;}) {
     return (
         <p className='SpeechBubble'>
             <span></span>
-            Você é um cachorro ?
+            {text}
         </p>
     )
 }

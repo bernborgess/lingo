@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { api } from "../../service/api";
 import { User, UserData, emptyUserData } from '../types/user';
 
@@ -19,21 +19,23 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<UserData | null>(null);
 
   const signIn = async ({ username, password }:   User) => {
-    const res = await api.post("user/login", { username, password });
-    console.log(res);
+    await api.post("user/login", { username, password }).then(getUser);
   }
 
   const getUser = async () => {
     try {
     const res = await api.get("user");
-    console.log(res);
     const data = res.data;
     setUser(data);
-    } catch (err) {
-      console.log(err);
+    } catch (_) {
       setUser(emptyUserData);
     }
   }
+
+
+  useEffect(() => {
+    getUser()
+  }, []);
 
   const values: AuthContextState = {
     user,

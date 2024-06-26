@@ -1,4 +1,4 @@
-.WriteThis {
+.Ordering {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,7 +7,7 @@
     height: 100vh;
 }
 
-.WriteThis div {
+.Ordering div {
     display: flex;
     align-items: center;
 }

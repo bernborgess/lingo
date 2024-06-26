@@ -2,17 +2,32 @@ import { Button } from '../../../utils/components/Button'
 import QuestionSubmitButton from '../../../utils/components/QuestionStatustButton/QuestionStatusButton';
 import './MultipleChoice.css'
 import useMultipleChoice from './useMultipleChoice/useMultipleChoice';
+import { useGoToNextQuestion } from '../hooks/useGoToNextQuestion';
 
-export default function MultipleChoice() {
 
-    const {answers, phrase, handleSelectAnswer,  formStatus} = useMultipleChoice();
+
+type propsType = {
+    phrase:string;
+    options:string[];
+}
+
+export default function MultipleChoice({phrase, options}:propsType) {
+    const {goToNextQuestion} = useGoToNextQuestion();
+    const { handleSelectAnswer,  formStatus, resetFormStatus} = useMultipleChoice(phrase, options);
+
+    function nextQuestion() {
+        if (formStatus === 'success'){
+            goToNextQuestion();
+            resetFormStatus();
+        }
+    }
 
     return (
         <div className='MultipleChoice'>
             <h1>{phrase}</h1>
 
-            {answers.map((answer, indx) => <Button variant='secondary' label={answer} key={indx} onClick={() => handleSelectAnswer(indx)} />)}
-            <QuestionSubmitButton status={formStatus} onClick={() => alert('next question')} />
+            {options.map((answer, indx) => <Button variant='secondary' label={answer} key={indx} onClick={() => handleSelectAnswer(indx)} />)}
+            <QuestionSubmitButton status={formStatus} onClick={nextQuestion} />
         </div>
     )
 }
