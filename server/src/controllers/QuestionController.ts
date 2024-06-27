@@ -26,10 +26,14 @@ class QuestionController {
     answerQuestion = async (req: Request, res: Response) => {
         try {
             const { levelSeq, questionSeq } = req.params;
-            const  requestBody  = req.body;
+            const requestBody = req.body;
 
             if (isNaN(Number(levelSeq)) || isNaN(Number(questionSeq))) {
                 throw new Error("Parameters must be numeric");
+            }
+
+            if (!["Ordering", "MultipleChoice"].includes(requestBody.type)) {
+                throw new Error(`Invalid answer type "${requestBody.type}"`);
             }
 
             const { id } = res.locals.user;
