@@ -5,7 +5,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
     plugins: [react({
         babel: {
-            babelrc: true
+            plugins: ["istanbul"]
         }
     })],
     server: {
