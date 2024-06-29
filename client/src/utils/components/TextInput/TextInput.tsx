@@ -6,15 +6,16 @@ type TTextInputProps = {
     icon?: JSX.Element;
     value: string;
     type: string;
+    dataTestID: string;
     onChange: ChangeEventHandler<HTMLInputElement>;
 
 }
 const TextInput = (props: TTextInputProps) => {
-    const { placeHolder, icon, value, type, onChange } = props;
+    const { placeHolder, icon, value, type, dataTestID, onChange } = props;
     return (
         <div className='text-input-container'>
             {icon}
-            <input onChange={onChange} value={value} type={type} placeholder={placeHolder} />
+            <input onChange={onChange} value={value} type={type} placeholder={placeHolder} data-testID={dataTestID} />
         </div>
     )
 }

@@ -21,7 +21,7 @@ export default function Home() {
   const levels = useGetLevels();
   return (
     <div className='Home'>
-      <div className='Levels'>
+      <div className='Levels' data-testID="card">
         {levels.map((level, i) => <LevelButton key={i} enable={user == null ? false : user.currentLevel >= level} onClick={() => handleSelectLevel(String(level), 1)} />)}
       </div>
       <img src={LingoPointLeft} alt="LingoPointLeft" />
