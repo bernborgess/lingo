@@ -13,7 +13,9 @@ export default function Home() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  function handleSelectLevel(level: string, sequence:number) {
+  function handleSelectLevel(level: string, sequence:number, i:number) {
+    console.log(level);
+    console.log(i);
     getCountQuestions(level);
     navigate(`./Questions/level/${level}/sequence/${sequence}`)
   }
@@ -22,7 +24,7 @@ export default function Home() {
   return (
     <div className='Home'>
       <div className='Levels' data-testID="card">
-        {levels.map((level, i) => <LevelButton key={i} enable={user == null ? false : user.currentLevel >= level} onClick={() => handleSelectLevel(String(level), 1)} />)}
+        {levels.map((level, i) => <LevelButton dataTestID={`card-button-${i}`} key={i} enable={user == null ? false : user.currentLevel >= level} onClick={() => handleSelectLevel(String(level), 1, i)} />)}
       </div>
       <img src={LingoPointLeft} alt="LingoPointLeft" />
     </div>

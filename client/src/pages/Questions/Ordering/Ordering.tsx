@@ -24,10 +24,10 @@ export default function Ordering({phrase, apiOptions}: propsType) {
                 <SpeechBubble text={phrase}/>
             </div>
             <div className='selectedWordsArea'>
-                {selectedWords.map((word) => <Chip label={word.label} key={word.id} onClick={() => handleRemoveWord(word.id)} />)}
+                {selectedWords.map((word) => <Chip dataTestID={`word-${word.id}`}  label={word.label} key={word.id} onClick={() => handleRemoveWord(word.id)} />)}
             </div>
             <div className='optionsWordsArea'>
-                {options.map((word) => <Chip label={word.label} key={word.id} onClick={() => handleSelectWord(word.id)} isSelected={word.isSelected} />)}
+                {options.map((word) => <Chip  dataTestID={`word-${word.id}`} label={word.label} key={word.id} onClick={() => handleSelectWord(word.id)} isSelected={word.isSelected} />)}
             </div>
             <QuestionSubmitButton showSubmitButton disabled={disabled} status={answerStatus} onClick={submitAnswer} />
         </div>

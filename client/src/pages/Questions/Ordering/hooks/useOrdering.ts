@@ -23,6 +23,8 @@ export function useOrdering(apiOptions: string[]) {
 
 
     const handleSelectWord = useCallback((id: number) => {
+        console.log(id);
+
         const obj = options.find((word: TWord) => word.id === id);
 
         if (obj) {
@@ -42,6 +44,7 @@ export function useOrdering(apiOptions: string[]) {
     }, [selectedWords, options])
 
     const handleRemoveWord = useCallback((id: number) => {
+        console.log(id);
         const obj = options.find((word: TWord) => word.id === id);
 
         if (obj) {
