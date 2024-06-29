@@ -55,7 +55,6 @@ jobs:
           ls -R client
           echo "Listing all files in the coverage directory:"
           ls -R client/coverage
-        working-directory: client
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
