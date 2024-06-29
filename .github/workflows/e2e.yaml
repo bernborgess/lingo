@@ -10,6 +10,7 @@ jobs:
       APP_URL: ${{ vars.APP_URL }}
       VITE_API_URL: ${{ vars.VITE_API_URL }}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
     strategy:
       matrix:
