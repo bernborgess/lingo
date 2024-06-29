@@ -69,7 +69,7 @@ export default function SignIn() {
                     />
                 </div>
                 <div data-testID="form-input">
-                    <Button onClick={handleSubmit} label="Login" />
+                    <Button dataTestID="button" onClick={handleSubmit} label="Login" />
                 </div>
             </div>
             <Divider/>

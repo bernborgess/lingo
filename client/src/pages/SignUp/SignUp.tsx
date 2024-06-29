@@ -66,7 +66,7 @@ export default function SignUp() {
                     onChange={(e) => updateData({ password: e.target.value })} 
                     placeHolder='Password' icon={<LockIcon htmlColor='var(--green)' />} 
                 />
-                <Button onClick={handleSubmit} label="Sign Up" />
+                <Button dataTestID="button" onClick={handleSubmit} label="Sign Up" />
             </form>
         </div>
     )

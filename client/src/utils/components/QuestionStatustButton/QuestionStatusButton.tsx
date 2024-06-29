@@ -40,10 +40,10 @@ export default function QuestionStatusButton(props: TQuestionStatusProps) {
     
     const renderButton = useCallback(() => {
         if (showSubmitButton) {
-            return <Button variant={buttonVariant} disabled={disabled} label={buttonLabel} onClick={onClick} />
+            return <Button dataTestID="button" variant={buttonVariant} disabled={disabled} label={buttonLabel} onClick={onClick} />
         }
         else if (status === 'success') {
-           return <Button variant={buttonVariant} disabled={disabled} label={buttonLabel} onClick={onClick} />
+           return <Button dataTestID="button" variant={buttonVariant} disabled={disabled} label={buttonLabel} onClick={onClick} />
         }
         return <></>
 
