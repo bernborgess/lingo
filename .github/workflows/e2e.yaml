@@ -49,19 +49,12 @@ jobs:
         run: npx nyc report --reporter=text-summary
         working-directory: client # or server depending on where nyc is set up
 
-      - name: Debug - List Files
-        run: |
-          echo "Listing all files in the client directory:"
-          ls -R client
-          echo "Listing all files in the coverage directory:"
-          ls -R client/coverage
-
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./client/coverage/*.json
-          directory: ./client/coverage
+          files: client/coverage/lcov.info
+          directory: client/coverage
           flags: unittests
           name: codecov-umbrella
           fail_ci_if_error: true
