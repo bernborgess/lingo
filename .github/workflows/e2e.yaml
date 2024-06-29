@@ -35,3 +35,18 @@ jobs:
           start: |
             npm run dev --prefix ../server
             npm run dev
+
+      - name: Run Coverage Report
+        run: npx nyc report --reporter=text-summary
+        working-directory: client # or server depending on where nyc is set up
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/*.json
+          directory: ./coverage
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true
+          verbose: true
