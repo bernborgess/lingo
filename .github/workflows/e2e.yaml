@@ -49,6 +49,14 @@ jobs:
         run: npx nyc report --reporter=text-summary
         working-directory: client # or server depending on where nyc is set up
 
+      - name: Debug - List Files
+        run: |
+          echo "Listing all files in the client directory:"
+          ls -R client
+          echo "Listing all files in the coverage directory:"
+          ls -R client/coverage
+        working-directory: client
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
