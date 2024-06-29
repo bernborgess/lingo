@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 
 *.env
+
+# e2e
+instrumented/
+.nyc_output/
+coverage/
