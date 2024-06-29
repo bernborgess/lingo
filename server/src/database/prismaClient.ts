@@ -41,7 +41,7 @@ async function main() {
                 {
                     sequence: 2,
                     type: 'MultipleChoice',
-                    phrase: 'Como você diz "cat" em inglês?',
+                    phrase: 'Como você diz "gato" em inglês?',
                     options: ['cat', 'man', 'and'],
                     answerId: 0
                 }
@@ -55,7 +55,7 @@ async function main() {
                     type: 'MultipleChoice',
                     phrase: 'Qual a tradução de "dog"?',
                     options: ['gato', 'cachorro', 'pássaro'],
-                    answerId: 2
+                    answerId: 1
                 },
                 {
                     sequence: 2,

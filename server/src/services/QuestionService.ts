@@ -74,7 +74,7 @@ class QuestionService {
 
         const questionCount = level._count.questions;
 
-        if(levelSequence === user.currentLevel) {
+        if (levelSequence === user.currentLevel) {
             // Last question of level
             if (sequence === questionCount) {
                 user.currentLevel++;
@@ -83,7 +83,7 @@ class QuestionService {
             else {
                 user.currentQuestion++;
             }
-    
+
             // Store user changes
             await prisma.user.update({
                 where: { id: userId },

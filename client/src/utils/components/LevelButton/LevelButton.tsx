@@ -7,11 +7,12 @@ import { useState } from 'react'
 
 type TLevelButtonProps = {
     enable?: boolean,
+    dataTestID: string,
     onClick?: () => void,
 }
 export default function LevelButton(props: TLevelButtonProps) {
 
-    const { enable = true, onClick } = props;
+    const { enable = true, dataTestID, onClick } = props;
 
 
     const [isButtonDown, setIsButtonDown] = useState<boolean>(false);
@@ -23,7 +24,7 @@ export default function LevelButton(props: TLevelButtonProps) {
     }
 
     return (
-        <div className={(enable ? 'LevelButton' : '')} onClick={handleClick}>
+        <div className={(enable ? 'LevelButton' : '')} onClick={handleClick} data-testID={dataTestID}>
             <img style={{ display: isButtonDown ? 'none' : 'block' }} src={enable ? EnableButtonLevel : DisableButtonLevel} alt="" />
             <img style={{ display: isButtonDown ? 'block' : 'none' }} src={enable ? EnableClickedButtonLevel : DisableButtonLevel} alt="" />
         </div>

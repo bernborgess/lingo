@@ -48,21 +48,29 @@ export default function SignIn() {
     return (
         <div className='SignIn'>
             <img src={Lingo} />
-            <div className="form">
+            <div className="form" data-testID="form">
                 <h2><b>Login</b> to your account</h2>
-                <TextInput 
-                    type="text" 
-                    value={loginUser.username}
-                    onChange={ (e) => updateData({ username: e.target.value })} 
-                    placeHolder='Username' icon={<PersonIcon htmlColor='var(--green)' />} 
-                />
-                <TextInput 
-                    type="password" 
-                    value={loginUser.password} 
-                    onChange={(e) => updateData({ password: e.target.value })} 
-                    placeHolder='Password' icon={<LockIcon htmlColor='var(--green)' />} 
-                />
-                <Button onClick={handleSubmit} label="Login" />
+                <div data-testID="form-input">
+                    <TextInput
+                        dataTestID="form-input-user"
+                        type="text" 
+                        value={loginUser.username}
+                        onChange={ (e) => updateData({ username: e.target.value })} 
+                        placeHolder='Username' icon={<PersonIcon htmlColor='var(--green)' />} 
+                    />
+                </div>
+                <div data-testID="form-input">
+                    <TextInput 
+                        dataTestID="form-input-password"
+                        type="password" 
+                        value={loginUser.password} 
+                        onChange={(e) => updateData({ password: e.target.value })} 
+                        placeHolder='Password' icon={<LockIcon htmlColor='var(--green)' />} 
+                    />
+                </div>
+                <div data-testID="form-input">
+                    <Button onClick={handleSubmit} label="Login" />
+                </div>
             </div>
             <Divider/>
             <div>

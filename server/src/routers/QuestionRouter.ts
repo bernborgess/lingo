@@ -29,7 +29,7 @@ const questionRouter = express.Router({ mergeParams: true });
  *      responses:
  *          200:
  *              description:
- *                  Coisas
+ *                  Um body de questao com type "Ordering" ou "Multiple Choice"
  */
 questionRouter.get("/:questionSeq", isLoggedIn, QuestionController.getStatement);
 
@@ -67,16 +67,15 @@ questionRouter.get("/:questionSeq", isLoggedIn, QuestionController.getStatement)
  *                             type: string
  *                         phrase:
  *                             type: string
- *                         options:
- *                             type: array
- *                             items:
- *                                 type: string
  *                         answer:
  *                             type: array
  *                             items:
  *                                 type: string
- *                         answerId:
- *                                 type: integer
+ *                 example:
+ *                     type: Ordering
+ *                     phrase: "Você é um gato?"
+ *                     answer: ["Are","you","a","cat"]
+ *                     
  *      responses:
  *          200:
  *              description: User successfully answered the question (correctly or not)
