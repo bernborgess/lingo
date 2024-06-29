@@ -1,10 +1,10 @@
-describe('Login', () => {
+describe('Respondendo a questão corretamente', () => {
   beforeEach(()=>{
     cy.visit('http://localhost:5173/')
     
   });
   
-  it('preenche form de login', () => {
+  it('faz login e responde a questão', () => {
     cy.get('[data-testID="form"]').should('exist')
     cy.get('[data-testID="form-input"]').should('exist')
     cy.get('[data-testID="form-input-user"]').should('exist')
@@ -18,5 +18,15 @@ describe('Login', () => {
     cy.get('[data-testID="button"]').click()
 
     cy.get('[data-testID="card"]').should('exist')
-  })
+    cy.get('[data-testID="card-button-2"]').should('exist')
+
+    cy.get('[data-testID="card-button-2"]').click()
+    cy.get('[data-testID="word-1"]').click()
+    cy.get('[data-testID="word-2"]').click()
+    cy.get('[data-testID="word-3"]').click()
+    cy.get('[data-testID="word-4"]').click()
+    cy.get('[data-testID="button"]').click()
+    cy.contains('Excellent!')
+  });
+
 })

@@ -49,16 +49,19 @@ export default function SignUp() {
             <form>
                 <h2><b>Sign Up</b> to your account</h2>
                 <TextInput 
+                    dataTestID="form-input-user"
                     type="text" value={newUser.username} 
                     onChange={ (e) => updateData({ username: e.target.value })} 
                     placeHolder='Username' icon={<PersonIcon htmlColor='var(--green)' />} 
                 />
                 <TextInput 
+                    dataTestID="form-input-email"
                     type="text" value={newUser.email} 
                     onChange={(e) => updateData({ email: e.target.value })} 
                     placeHolder='Email' icon={<MailIcon htmlColor='var(--green)' />} 
                 />
                 <TextInput 
+                    dataTestID="form-input-password"
                     type="password" value={newUser.password} 
                     onChange={(e) => updateData({ password: e.target.value })} 
                     placeHolder='Password' icon={<LockIcon htmlColor='var(--green)' />} 
