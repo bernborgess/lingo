@@ -8,7 +8,7 @@ type TButtonProps = {
 
 const Button = (props: TButtonProps) => {
     const { onClick, label, disabled, variant = 'primary' } = props;
-    return (<button className={(disabled ? 'disabled-btn' : '') + ' variant-' + variant} disabled={disabled} onClick={onClick}>{label}</button>)
+    return (<button  data-testID="button" className={(disabled ? 'disabled-btn' : '') + ' variant-' + variant} disabled={disabled} onClick={onClick}>{label}</button>)
 }
 
 export { Button }
