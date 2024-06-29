@@ -35,6 +35,14 @@ jobs:
           start: |
             npm run dev --prefix ../server
             npm run dev
+      
+      - name: Upload ScreenShots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
 
       - name: Run Coverage Report
         run: npx nyc report --reporter=text-summary
