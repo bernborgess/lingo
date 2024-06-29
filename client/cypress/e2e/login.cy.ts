@@ -15,10 +15,7 @@ describe('Login', () => {
     
     cy.get('[data-testID="form-input-password"]').type('string')
     cy.wait(500)
-    cy.contains('Login').click()
-  });
-  it('verifica se temos acesso a página home', () => {
-    cy.visit('http://localhost:5173/app')
+    cy.get('[data-testID="button"]').click()
 
     cy.get('[data-testID="card"]').should('exist')
   })
