@@ -41,7 +41,7 @@ jobs:
         if: failure()
         with:
           name: cypress-screenshots
-          path: cypress/screenshots
+          path: client/cypress/screenshots
           if-no-files-found: ignore
 
       - name: Run Coverage Report
