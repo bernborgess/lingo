@@ -32,6 +32,7 @@ describe('Criar Nova Conta', () => {
     cy.get('[data-testID="form-input-password"]').type('cypress@teste')
     cy.wait(500)
     cy.get('[data-testID="button"]').click()
+    cy.wait(1000)
 
     cy.get('[data-testID="card"]').should('exist')
   });
