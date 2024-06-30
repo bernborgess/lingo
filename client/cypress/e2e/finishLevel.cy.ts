@@ -18,9 +18,9 @@ describe('Respondendo a todas as questões corretamente', () => {
     cy.get('[data-testID="button"]').click()
 
     cy.get('[data-testID="card"]').should('exist')
-    cy.get('[data-testID="card-button-2"]').should('exist')
+    cy.get('[data-testID="card-button-0"]').should('exist')
 
-    cy.get('[data-testID="card-button-2"]').click()
+    cy.get('[data-testID="card-button-0"]').click()
     cy.get('[data-testID="word-1"]').click()
     cy.get('[data-testID="word-2"]').click()
     cy.get('[data-testID="word-3"]').click()

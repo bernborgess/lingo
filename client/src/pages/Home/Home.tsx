@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <div className='Home'>
       <div className='Levels' data-testID="card">
-        {levels.map((level, i) => <LevelButton dataTestID={`card-button-${i}`} key={i} enable={user == null ? false : user.currentLevel >= level} onClick={() => handleSelectLevel(String(level), 1, i)} />)}
+        {levels.map((_, i) => <LevelButton dataTestID={`card-button-${i}`} key={i} enable={user == null ? false : user.currentLevel >= i+1} onClick={() => handleSelectLevel(String(i+1), 1, i)} />)}
       </div>
       <img src={LingoPointLeft} alt="LingoPointLeft" />
     </div>
